@@ -161,7 +161,7 @@ function range(start, stop) {
   return newarr
 }
 
-// const test = range(3, 9);
+// const test = range(1, 5);
 // console.log(test)
 
 export {
