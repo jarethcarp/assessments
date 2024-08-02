@@ -12,7 +12,7 @@ function divide(x, y) {}
 //   => 6
 function average(x, y) {}
 
-// Return true if x and y are mostly equivalent up to a tolerance of 0.001.
+// Return true if x and y are mostly equivalent up to a tolerance of 0.001. I can use this (Math.abs)
 // In other words, return true if the aboslute value of x - y is less than 0.001.
 // Ex.:
 //   approximatelyEqual(10.001, 10);
