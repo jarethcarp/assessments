@@ -161,8 +161,8 @@ function range(start, stop) {
   return newarr
 }
 
-const test = range(3, 9);
-console.log(test)
+// const test = range(3, 9);
+// console.log(test)
 
 export {
   bWords,
