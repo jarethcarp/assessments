@@ -1,11 +1,64 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unit 2 Assessment: HTML/CSS</title>
+    <title>HTML/CSS</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
 
-  <body></body>
+  <body>
+    <div>
+      <form action="character">
+        <label for="name">Character Name</label>
+        <input type="text">
+        <br>
+        <label for="jedi" id="jedi">Jedi</label>
+        <input type="radio">
+        <label for="sith">Sith</label>
+        <input type="radio">
+        <br>
+        <label for="lightsaber">Lightsaber color</label>
+        <select name="lightsaberColor" id="lightsaber">
+        <option value="">Chose a lightsaber</option>
+        <option value="">Blue</option>
+        <option value="">Red</option>
+        <option value="">Green</option>
+        <option value="">Purple</option>
+        </select>
+        <br>
+        <input type="submit" name="sub" id="mit">
+        <!-- <button>Submit</button> -->
+      </form>
+    </div>
+
+    <table>
+      <tr>
+        <th>Planet</th>
+        <th>Environment</th>
+        <th>Population</th>
+      </tr>
+      <tr>
+        <th>Tatooine</th>
+        <th>Desert</th>
+        <th>200,000</th>
+      </tr>
+      <tr>
+        <th>Hoth</th>
+        <th>Ice</th>
+        <th>0</th>
+      </tr>
+      <tr>
+        <th>Endor</th>
+        <th>Forest</th>
+        <th>30,000,000</th>
+      </tr>
+      <tr>
+        <th>Mustafar</th>
+        <th>Lava</th>
+        <th>10,000</th>
+      </tr>
+    </table>
+
+  </body>
 </html>

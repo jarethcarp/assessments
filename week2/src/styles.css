@@ -1,0 +1,17 @@
+body{
+    background-color: black;
+    color: white;
+    font-family:  sans-serif; 
+}
+table{
+    margin-top: 50px;
+    border: 1px solid white;
+}
+th, td{
+    border: 1px solid white;
+    padding: 5px;
+}
+div{
+    display: flex;
+    flex-direction: column;
+}
