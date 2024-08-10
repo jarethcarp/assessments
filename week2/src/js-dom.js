@@ -96,14 +96,13 @@ adder.addEventListener("dblclick", () => {
 
 const redBnt = document.querySelector('#red')
 const blueBnt = document.querySelector('#blue')
-const colorChange = document.querySelector('.changes-colors')
+// const colorChange = document.querySelector('.changes-colors')
 // const colorChange = document.getElementById('.changes-colors')
 
 // document.getElementById('#changes-colors').style.color = 'red'
 
 redBnt.addEventListener('click', () => {
     console.log("RED!!!")
-    console.log(colorChange)
     document.querySelector('div', '.changes-colors').style.color = 'red'
     // document.getElementById('#changes-colors').style.color = 'red'
 
@@ -129,21 +128,22 @@ blueBnt.addEventListener('click', () => {
 //   - puts the result of the function inside the "result" span
 
 const calculation = document.querySelector('#factorial-calculator') // factorial-calculator
-const numsCalc = document.querySelector('#factorial-input').value // number
 let result = document.querySelector('#result')
 
 
 calculation.addEventListener("submit", (e) => {
+    const numsCalc = document.querySelector('#factorial-input').value // number
     e.preventDefault()
     let finalcalc = numsCalc
-
-    // for(let i = numsCalc-1; i <= 0; i++){
-        // finalcalc = i * finalcalc
-        // console.log(i)
-    // }
-
-
     console.log(numsCalc)
+
+    for(let i = numsCalc-1; i > 0; i--){
+        finalcalc = i * finalcalc
+        console.log(i)
+    }
+
+
+    console.log(finalcalc)
     result.innerText = finalcalc
 })
 
@@ -162,4 +162,21 @@ calculation.addEventListener("submit", (e) => {
 // the feedback text to say "The word must be at least 4 characters long." and
 // change the color of the text to red..
 
-/// TODO: replace this with your code
+
+const wordRec = document.querySelector('#recommend-word')
+const word = document.querySelector('#word')
+const formFeedback = document.querySelector('.form-feedback')
+
+wordRec.addEventListener("submit", (e) => {
+    e.preventDefault()
+    if (word.value.length >= 3){
+        console.log('Test')
+        document.querySelector('.form-feedback').style.color = 'green'
+        formFeedback.innerText = "Thanks for your submission!"
+    } else {
+        document.querySelector('.form-feedback').style.color = 'red'
+        formFeedback.innerText = "The word must be at least 4 characters long."
+    }
+    // console.log("You typed:" + messageAlert.value)
+    console.log(word.value.length)
+})

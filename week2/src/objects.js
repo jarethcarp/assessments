@@ -272,7 +272,7 @@ function buildBugHuntCalendar(bugs) {
       const bugMonth = bug.availability.months
       console.log(bug.name)
       bugMonth.forEach((month) => {
-        console.log("Month: ", month)
+      console.log("Month: ", month)
         // if (bugCalendar[month]){
           const currentMonth = bugCalendar[month];
             currentMonth.push(bug.name)
