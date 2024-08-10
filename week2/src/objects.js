@@ -265,29 +265,46 @@ function isBugAvailable(bug, month) {
 
 function buildBugHuntCalendar(bugs) {
   const bugCalendar = {} 
-  const bugArr = []
+  let bugArr = []
 
-for (let i = 1; i<5;i++){
-  for (let key of bugs){
-    if(key.availability.months.find((month) => month === i) === i){
-      if (bugArr.find((bug) => bug === key.name) !== key.name){
-      console.log(i)
-      // console.log(key.name)
-      bugArr.push(key.name)
-      bugCalendar[i] = bugArr
-      console.log(bugArr)
-      console.log(bugCalendar)
-      }
-    }
-    console.log("end of Bugs")
+  // for (let month = 1; month<5;month++){
+    for (let bug of bugs){
+      const bugMonth = bug.availability.months
+      console.log(bug.name)
+      bugMonth.forEach((month) => {
+        console.log("Month: ", month)
+        // if (bugCalendar[month]){
+          const currentMonth = bugCalendar[month];
+            currentMonth.push(bug.name)
+            console.log("3", bugArr)
+        // } 
+        // }else{
+          // bugCalendar[month] = [
+
+          // ]
+          console.log("1", bugArr)
+        // }
+        
+          // bugCalendar[month] = bugArr
+      })
+          // bugArr = []
+
+
+      // if(bug.availability.months.find((month) => month === i) === i){
+      //   if (bugArr.find((bug) => bug === key.name) !== key.name){
+      //   console.log(i)
+      //   // console.log(key.name)
+      //   bugArr.push(key.name)
+      //   bugCalendar[i] = bugArr
+      //   console.log(bugArr)
+      //   console.log(bugCalendar)
+      //   }
+      // }
+      // console.log("end of Bugs")
+    // }
+    // bugArr.splice(0,i)
+    // console.log(bugArr)
   }
-  bugArr.splice(0,i)
-  console.log(bugArr)
-}
-
-
-
-
 
   // 
   //   const test = key.availability.months.filter((month) => month = 3)
@@ -311,7 +328,7 @@ for (let i = 1; i<5;i++){
     //     // bugCalendar[i] = Array.of('Test')
     // }
   // }
-
+  console.log("BugCalendar ", bugCalendar)
   return bugCalendar
 }
 

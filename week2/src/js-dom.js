@@ -8,7 +8,21 @@
 // update and say "Log out". If a user clicks on the button again, its text
 // should switch from "Log Out" to "Log In".
 
+// const bntLogin = document.querySelector()
 
+const loginLogout = () => {
+    let status = document.querySelector("#auth")
+    // console.log("$auth".innerText)
+    // console.log(status)
+    if (status.innerText === 'Log in'){
+        status.innerText = 'Log out'
+    } else if(status.innerText === 'Log out'){
+        status.innerText = 'Log in'
+    }
+    console.log("Test")
+}
+
+document.querySelector("#auth").addEventListener('click', loginLogout)
 
 // Send an alert
 //
@@ -17,7 +31,24 @@
 // A user should be able to enter what they want the alert to say in the
 // text box. Then, they can submit the form to trigger the alert.
 
-/// TODO: replace this with your code
+// const alertSend = document.querySelector("#alert-message")
+
+// form.addEventListener("#submit", (e) => {
+//     e.preventDefault()
+//     console.log("You typed:")
+// })
+
+const alert = document.querySelector('#send-alert')
+const messageAlert = document.querySelector('#alert-message')
+
+alert.addEventListener("submit", (e) => {
+    e.preventDefault()
+    // console.log("You typed:" + messageAlert.value)
+    window.alert(messageAlert.value)
+})
+
+
+
 
 // Add an item
 //
@@ -34,7 +65,25 @@
 //     <li>Item</li>  <!-- This was added after double-clicking -->
 //   </ol>
 
-/// TODO: replace this with your code
+const listAdd = document.querySelector('#list')
+const adder = document.querySelector('#item-adder')
+const textAdd = ["You doubbled clicked this", "Why", "It works", "You can move on now", "Really?"]
+let textAddCount = 0
+
+adder.addEventListener("dblclick", () => {
+    if (textAddCount >= 0 && textAddCount <= 4){
+        const newLi = document.createElement("li")
+        newLi.innerText = textAdd[textAddCount]
+        listAdd.appendChild(newLi)
+        textAddCount++
+        console.log(textAddCount)
+    } else {
+        const newLi = document.createElement("li")
+        newLi.innerText = "I don't have anything more"
+        listAdd.appendChild(newLi)
+    }
+    console.log("works")
+})
 
 // Change colors
 //
@@ -45,7 +94,24 @@
 // Clicking on "Turn Stuff Red" should make text red and clicking on "Turn
 // Stuff Blue" should make text blue.
 
-/// TODO: replace this with your code
+const redBnt = document.querySelector('#red')
+const blueBnt = document.querySelector('#blue')
+const colorChange = document.querySelector('.changes-colors')
+// const colorChange = document.getElementById('.changes-colors')
+
+// document.getElementById('#changes-colors').style.color = 'red'
+
+redBnt.addEventListener('click', () => {
+    console.log("RED!!!")
+    console.log(colorChange)
+    document.querySelector('div', '.changes-colors').style.color = 'red'
+    // document.getElementById('#changes-colors').style.color = 'red'
+
+})
+blueBnt.addEventListener('click', () => {
+    document.querySelector('div', '.changes-colors').style.color = 'blue'
+    console.log("BLUE!!!")
+})
 
 // Calculate factorial
 //
@@ -62,7 +128,24 @@
 //   - calls your function that calculates a factorial
 //   - puts the result of the function inside the "result" span
 
-/// TODO: replace this with your code
+const calculation = document.querySelector('#factorial-calculator') // factorial-calculator
+const numsCalc = document.querySelector('#factorial-input').value // number
+let result = document.querySelector('#result')
+
+
+calculation.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let finalcalc = numsCalc
+
+    // for(let i = numsCalc-1; i <= 0; i++){
+        // finalcalc = i * finalcalc
+        // console.log(i)
+    // }
+
+
+    console.log(numsCalc)
+    result.innerText = finalcalc
+})
 
 // Validate a form
 //
