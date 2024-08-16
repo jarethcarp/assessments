@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Most Liked Fossils</title>
-  </head>
+{% extends 'base.html' %}
+
+
+{% block body %}
+
   <body>
     <h1>Most Liked Fossils</h1>
 
-    <form action="/get-name">
+    <form action="/get-name" method="POST">
       <div>
         <label for="namefield">What's your name?</label>
-        <input id="namefield" type="text" name="name" required />
+        <input id="namefield" type="text" name="username" required />
       </div>
       <div>
         <input type="submit" />
       </div>
     </form>
+
+    
 
     <h1>Random Fossil</h1>
     <button id="get-random-fossil">Get Random Fossil</button>
@@ -26,4 +25,6 @@
 
     <script type="module" src="../src/random-fossil.js"></script>
   </body>
-</html>
+
+{% endblock %}
+

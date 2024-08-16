@@ -18,6 +18,7 @@ nunjucks.configure('views', {
   express: app,
 });
 
+
 const MOST_LIKED_FOSSILS = {
   aust: {
     img: '/img/australopith.png',
@@ -60,12 +61,56 @@ const OTHER_FOSSILS = [
   },
 ];
 
-// TODO: Replace this comment with your code
+
+
+app.get('/', (req,res) => {
+  if (req.session.username){
+      res.redirect('top-fossils')
+  } else {
+      res.render('homepage.html')
+  }
+})
 
 app.get('/random-fossil.json', (req, res) => {
   const randomFossil = lodash.sample(OTHER_FOSSILS);
   res.json(randomFossil);
 });
+
+app.get('/top-fossils', (req,res) => {
+  if (req.session.username){
+    res.render('top-fossils.html', {
+    MOST_LIKED_FOSSILS,
+    username: req.session.username
+  })
+  } else {
+    res.redirect('/')
+  }
+  
+})
+
+app.post('/get-name', (req,res) => {
+  req.session.username = req.body.username
+
+  res.render('top-fossils.html', {
+    MOST_LIKED_FOSSILS,
+    username: req.session.username
+  })
+})
+
+app.post('/like-fossil', (req,res) => {
+  // See if there is time at the end to add what fossil they liked
+  let favFossil = req.body.likedFossil
+  // console.log(req.body.likedFossil.name)
+
+  // Adding 1 to liked
+  MOST_LIKED_FOSSILS[favFossil].num_likes += 1
+  // console.log(MOST_LIKED_FOSSILS[favFossil].name)
+
+  res.render('thank-you.html', {
+    username: req.session.username,
+    // favoriteFossil: favFossil
+  })
+})
 
 ViteExpress.listen(app, port, () => {
   console.log(`Server running on http://localhost:${port}...`);
