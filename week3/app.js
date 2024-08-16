@@ -99,14 +99,16 @@ app.post('/get-name', (req,res) => {
 
 app.post('/like-fossil', (req,res) => {
   // See if there is time at the end to add what fossil they liked
-  let favFossil = req.body.likedFossil
-  // console.log(req.body.likedFossil.name)
+  const favFossil = req.body.likedFossil
+  const likedFossil = MOST_LIKED_FOSSILS[favFossil].name
+  console.log(MOST_LIKED_FOSSILS[favFossil].name)
 
   // Adding 1 to liked
   MOST_LIKED_FOSSILS[favFossil].num_likes += 1
   // console.log(MOST_LIKED_FOSSILS[favFossil].name)
 
   res.render('thank-you.html', {
+    likedFossil: likedFossil,
     username: req.session.username,
     // favoriteFossil: favFossil
   })
