@@ -1,23 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import DeckList from './components/DeckList.jsx'
-
-let TEST_DATA = [
-  { id: 0, cardCount: 1, cardName: "Plummet", cardType: "Instant", mana: "{1} {G}" },
-  { id: 1, cardCount: 4, cardName: "Lightning Bolt", cardType: "Instant", mana: "{R}" },
-  { id: 2, cardCount: 4, cardName: "Ragavan, Nimble Pilferer", cardType: "Creature", mana: "{R}" },
-  { id: 3, cardCount: 4, cardName: "Tarmogoyf", cardType: "Creature", mana: "{1} {G}" },
-  { id: 4, cardCount: 4, cardName: "Thoughtseize", cardType: "Sorcery ", mana: "{B}" },
-];
+import { useState, useEffect } from "react";
+import "./App.css";
+import DeckList from "./components/DeckList.jsx";
+import axios from "axios";
 
 function App() {
-  
+  const [cardData, setCardData] = useState([]);
 
-  return (
-    <DeckList initalData={TEST_DATA}/>
-  )
+  useEffect(() => {
+    axios.get("api/cards").then((res) => {
+      setCardData(res.data.cards);
+    });
+  }, []);
+      console.log(cardData)
+
+
+  return <DeckList initalData={cardData} />;
 }
 
-export default App
+export default App;

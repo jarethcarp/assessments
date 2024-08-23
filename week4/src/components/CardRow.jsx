@@ -6,17 +6,35 @@ import CardType from "./CardType";
 import { useState } from "react";
 import axios from "axios";
 
-const CardRow = ({ initalCardData, initalIsEditing }) => {
+const CardRow = ({ initalCardData, initalIsEditing, deleteFunc }) => {
   // Setting useState variables
   const [editMode, setEditMode] = useState(initalIsEditing);
   const [cardCount, setCardCount] = useState(initalCardData.cardCount);
   const [cardName, setCardName] = useState(initalCardData.cardName);
   const [cardType, setCardType] = useState(initalCardData.cardType);
-  const [mana, setCardMana] = useState(initalCardData.mana);
+  const [mana, setMana] = useState(initalCardData.mana);
 
   // For toggling the ability to edit
   const changeEditmode = () => setEditMode(true);
-  const changeNormalmode = () => setEditMode(false);
+  const changeNormalmode = () => {
+    const bodyObj = {
+        id: initalCardData.id,
+        cardCount: cardCount,
+        cardName: cardName,
+        cardType: cardType,
+        mana: mana
+    }
+
+    axios.put("/api/editCard", bodyObj)
+    .then((res) => {
+        setCardCount(res.data.updatedCard.cardCount)
+        setCardName(res.data.updatedCard.cardName)
+        setCardType(res.data.updatedCard.cardType)
+        setMana(res.data.updatedCard.cardCount)
+    })
+
+    setEditMode(false);
+  }
 
   return (
     <tr>
@@ -44,7 +62,7 @@ const CardRow = ({ initalCardData, initalIsEditing }) => {
       <ManaCell 
         isEditing={editMode} 
         value={mana} 
-        onValueChange={setCardMana} 
+        onValueChange={setMana} 
       />
     </tr>
   );

@@ -3,7 +3,7 @@ const AddCardButton = ({ addClick }) => {
     <tr>
         <td></td>
         <td colSpan={4}>
-            <button onClick={addClick}>Add Card</button>
+            <button onClick={addClick}>New Card</button>
         </td>
     </tr>
   )
