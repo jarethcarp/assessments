@@ -1,6 +1,6 @@
 table td {
     font-size: 1rem;
-    width: 100px;
+    width: 150px;
     height: 60px;
     /* border: solid white 1px; */
   }
@@ -8,7 +8,7 @@ table td {
   table td:nth-child(3) {
     text-align: left;
     max-width: 300px;
-    width: 300px;
+    width: 200px;
     overflow-wrap: break-word;
   }
   
@@ -18,8 +18,8 @@ table td {
 
   table td:nth-child(2) {
     text-align: left;
-    max-width: 30px;
-    width: 20px;
+    max-width: 50px;
+    width: 50px;
     overflow-wrap: break-word;
   }
 
@@ -34,11 +34,15 @@ table td {
   input[type='text'] {
     font-size: inherit;
     text-align: inherit;
-    width: 50px;
+    width: 100px;
   }
   
   table td:nth-child(3) input[type='text'] {
     width: 150px;
+  }
+
+  table td:nth-child(2) input[type='text'] {
+    width: 20px;
   }
   
   tfoot button {

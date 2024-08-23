@@ -1,11 +1,9 @@
-import React from 'react'
-
-const AddCardButton = () => {
+const AddCardButton = ({ addClick }) => {
   return (
     <tr>
         <td></td>
         <td colSpan={4}>
-            <button>Add Card</button>
+            <button onClick={addClick}>Add Card</button>
         </td>
     </tr>
   )

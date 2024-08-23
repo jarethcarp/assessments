@@ -1,11 +1,17 @@
 
 
 
-const NameCell = ({ isEditing, value }) => {
-  return (
+const NameCell = ({ isEditing, value, onValueChange }) => {
+  return isEditing ? (
     <td>
-        <p>{value}</p>
+        <input 
+        type="text"
+        value={value}
+        onChange={(e) => onValueChange(e.target.value)}
+        />
     </td>
+  ) : (
+    <td>{value}</td>
   )
 }
 

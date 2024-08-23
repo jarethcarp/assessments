@@ -2,16 +2,18 @@ import "./DeckList.css"
 import CardListHeader from "./CardListHeader"
 import AddCardButton from "./AddCardButton"
 import CardRow from "./CardRow"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
 
+let globalId = 5
 
 
 const DeckList = ({ initalData }) => {
+    const [currentData, setCurrentData] = useState(initalData)
 
-    const currentData = initalData
 
     const rows = currentData.map((cardList) => {
-        console.log("CardList", cardList)
         return (
             <CardRow 
             key={cardList.id}
@@ -20,6 +22,24 @@ const DeckList = ({ initalData }) => {
             />
         )
     })
+
+    useEffect(() => {
+        setCurrentData(initalData)
+    }, [initalData])
+
+    const addRow = () => {
+        const newRow = {
+            id: globalId,
+            cardCount: cardCount,
+            cardName: cardName,
+            cardType: cardType,
+            mana: mana,
+        }
+        setCurrentData({...currentData, newRow})
+    }
+
+
+
   return (
     <div>
         <table>
@@ -30,7 +50,7 @@ const DeckList = ({ initalData }) => {
                 {rows}
             </tbody>
             <tfoot>
-                <AddCardButton />
+                <AddCardButton addClick={addRow}/>
             </tfoot>
         </table>
     </div>

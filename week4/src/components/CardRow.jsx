@@ -1,38 +1,53 @@
-import EditButtons from "./EditButtons"
-import NameCell from "./NameCell"
-import CountCell from "./CountCell"
-import ManaCell from "./ManaCell"
-import CardType from "./CardType"
+import EditButtons from "./EditButtons";
+import NameCell from "./NameCell";
+import CountCell from "./CountCell";
+import ManaCell from "./ManaCell";
+import CardType from "./CardType";
+import { useState } from "react";
+import axios from "axios";
 
-const CardRow = ({ initalCardData }) => {
+const CardRow = ({ initalCardData, initalIsEditing }) => {
+  // Setting useState variables
+  const [editMode, setEditMode] = useState(initalIsEditing);
+  const [cardCount, setCardCount] = useState(initalCardData.cardCount);
+  const [cardName, setCardName] = useState(initalCardData.cardName);
+  const [cardType, setCardType] = useState(initalCardData.cardType);
+  const [mana, setCardMana] = useState(initalCardData.mana);
 
-    const { cardCount, cardName, type, mana} = initalCardData
-    
-    
+  // For toggling the ability to edit
+  const changeEditmode = () => setEditMode(true);
+  const changeNormalmode = () => setEditMode(false);
 
   return (
     <tr>
-        <EditButtons 
-        isEditing={false}
-        />
-        <CountCell 
-        isEditing={false}
+      <EditButtons
+        isEditing={editMode}
+        editClick={changeEditmode}
+        saveClick={changeNormalmode}
+        deleteFunc={deleteFunc}
+      />
+      <CountCell
+        isEditing={editMode}
         value={cardCount}
-        />
-        <NameCell 
-        isEditing={false}
+        onValueChange={setCardCount}
+      />
+      <NameCell
+        isEditing={editMode}
         value={cardName}
-        />
-        <CardType 
-        isEditing={false}
-        value={type}
-        />
-        <ManaCell 
-        isEditing={false}
-        value={mana}
-        />
+        onValueChange={setCardName}
+      />
+      <CardType
+        isEditing={editMode}
+        value={cardType}
+        onValueChange={setCardType}
+      />
+      <ManaCell 
+        isEditing={editMode} 
+        value={mana} 
+        onValueChange={setCardMana} 
+      />
     </tr>
-  )
-}
+  );
+};
 
-export default CardRow
+export default CardRow;
