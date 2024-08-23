@@ -13,28 +13,71 @@ const CardRow = ({ initalCardData, initalIsEditing, deleteFunc }) => {
   const [cardName, setCardName] = useState(initalCardData.cardName);
   const [cardType, setCardType] = useState(initalCardData.cardType);
   const [mana, setMana] = useState(initalCardData.mana);
+  const [link, setLink] = useState(initalCardData.link);
+
+  axios
+    .get(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
+    .catch(function (error) {
+      console.log(error);
+      setCardName("Please put in the name of a MTG card");
+      setCardType("");
+      setMana("");
+    })
+    .then((res) => {
+      if (res.data.object === "card") {
+        setCardName(res.data.name);
+        setCardType(res.data.type_line);
+        setMana(res.data.mana_cost);
+        setLink(res.data.scryfall_uri);
+      }
+    });
 
   // For toggling the ability to edit
-  const changeEditmode = () => setEditMode(true);
+  const changeEditmode = () => {
+    if (cardName === "Please put in the name of a MTG card") {
+      setCardName("");
+    }
+    setEditMode(true);
+  };
   const changeNormalmode = () => {
     const bodyObj = {
-        id: initalCardData.id,
-        cardCount: cardCount,
-        cardName: cardName,
-        cardType: cardType,
-        mana: mana
-    }
+      id: initalCardData.id,
+      cardCount: cardCount,
+      cardName: cardName,
+      cardType: cardType,
+      mana: mana,
+    };
 
-    axios.put("/api/editCard", bodyObj)
-    .then((res) => {
-        setCardCount(res.data.updatedCard.cardCount)
-        setCardName(res.data.updatedCard.cardName)
-        setCardType(res.data.updatedCard.cardType)
-        setMana(res.data.updatedCard.cardCount)
-    })
+    // Calls scryfalls targeting the name of the card and returns data about that card
+    axios
+      .get(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
+      .catch(function (error) {
+        console.log(error);
+        setCardName("Please put in the name of a MTG card");
+        setCardType("");
+        setMana("");
+      })
+      .then((res) => {
+        if (res.data.object === "card") {
+          setCardName(res.data.name);
+          setCardType(res.data.type_line);
+          setMana(res.data.mana_cost);
+          setLink(res.data.scryfall_uri);
+        }
+      });
+
+    // This is what to use so you can edit the box yourself
+
+    // axios.put("/api/editCard", bodyObj)
+    // .then((res) => {
+    //     setCardCount(res.data.updatedCard.cardCount)
+    //     setCardName(res.data.updatedCard.cardName)
+    //     setCardType(res.data.updatedCard.cardType)
+    //     setMana(res.data.updatedCard.cardCount)
+    // })
 
     setEditMode(false);
-  }
+  };
 
   return (
     <tr>
@@ -52,6 +95,7 @@ const CardRow = ({ initalCardData, initalIsEditing, deleteFunc }) => {
       <NameCell
         isEditing={editMode}
         value={cardName}
+        linkValue={link}
         onValueChange={setCardName}
       />
       <CardType
@@ -59,13 +103,9 @@ const CardRow = ({ initalCardData, initalIsEditing, deleteFunc }) => {
         value={cardType}
         onValueChange={setCardType}
       />
-      <ManaCell 
-        isEditing={editMode} 
-        value={mana} 
-        onValueChange={setMana} 
-      />
+      <ManaCell isEditing={editMode} value={mana} onValueChange={setMana} />
     </tr>
   );
 };
-
+// Prettier for some reason dosen't want ManaCell to be on sepraite lines and I am tried of fighting it
 export default CardRow;

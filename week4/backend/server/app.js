@@ -9,16 +9,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.use(express.json());
 
-import handlerFunc from './controller.js'
+import handlerFunc from "./controller.js";
 
-app.get('/api/cards', handlerFunc.getCards)
+app.get("/api/cards", handlerFunc.getCards);
 
-app.post('/api/addCard', handlerFunc.addCard)
+app.post("/api/addCard", handlerFunc.addCard);
 
-app.delete('/api/deleteCard/:id', handlerFunc.deleteCard)
+app.delete("/api/deleteCard/:id", handlerFunc.deleteCard);
 
-app.put('/api/editCard', handlerFunc.editCard)
+app.put("/api/editCard", handlerFunc.editCard);
 
-
-
-ViteExpress.listen(app, 2500, () => console.log("Things are running. See http://localhost:2500"))
+ViteExpress.listen(app, 2500, () =>
+  console.log("Things are running. See http://localhost:2500")
+);

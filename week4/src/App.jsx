@@ -11,7 +11,8 @@ function App() {
       setCardData(res.data.cards);
     });
   }, []);
-      console.log(cardData)
+
+
 
 
   return <DeckList initalData={cardData} />;

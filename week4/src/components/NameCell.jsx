@@ -1,4 +1,4 @@
-const NameCell = ({ isEditing, value, onValueChange }) => {
+const NameCell = ({ isEditing, value, onValueChange, linkValue }) => {
   return isEditing ? (
     <td>
       <input
@@ -8,7 +8,9 @@ const NameCell = ({ isEditing, value, onValueChange }) => {
       />
     </td>
   ) : (
-    <td>{value}</td>
+    <td>
+        <a href={linkValue} target="_blank">{value}</a> 
+    </td>
   );
 };
 

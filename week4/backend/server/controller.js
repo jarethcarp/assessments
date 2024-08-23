@@ -1,13 +1,13 @@
 let TEST_DATA = [
-    { id: 0, cardCount: 1, cardName: "Plummet", cardType: "Instant", mana: "{1} {G}" },
-    { id: 1, cardCount: 4, cardName: "Lightning Bolt", cardType: "Instant", mana: "{R}" },
-    { id: 2, cardCount: 4, cardName: "Ragavan, Nimble Pilferer", cardType: "Creature", mana: "{R}" },
-    { id: 3, cardCount: 4, cardName: "Tarmogoyf", cardType: "Creature", mana: "{1} {G}" },
-    { id: 4, cardCount: 4, cardName: "Thoughtseize", cardType: "Sorcery ", mana: "{B}" },
+    { id: 0, cardCount: 1, cardName: "Plummet", cardType: "Instant", mana: "{1} {G}", link: "https://scryfall.com/card/mid/193/plummet?utm_source=api" },
+    { id: 1, cardCount: 4, cardName: "Lightning Bolt", cardType: "Instant", mana: "{R}", link: "https://scryfall.com/card/clu/141/lightning-bolt?utm_source=api" },
+    { id: 2, cardCount: 4, cardName: "Ragavan, Nimble Pilferer", cardType: "Creature", mana: "{R}", link: "https://scryfall.com/card/mh2/138/ragavan-nimble-pilferer?utm_source=api" },
+    { id: 3, cardCount: 4, cardName: "Tarmogoyf", cardType: "Creature", mana: "{1} {G}", link: "https://scryfall.com/card/tsr/235/tarmogoyf?utm_source=api" },
+    { id: 4, cardCount: 4, cardName: "Thoughtseize", cardType: "Sorcery ", mana: "{B}", link: "https://scryfall.com/card/2xm/109/thoughtseize?utm_source=api" },
 ];
 
 
-  let globalId = 10
+  let globalId = 6
   
 const handlerFunc =  {
     getCards: (req,res) => {
@@ -67,6 +67,10 @@ const handlerFunc =  {
             message: "Card Updated",
             updatedCard: card
         })
+    },
+
+    getScryfall: (req,res) => {
+
     }
 
 

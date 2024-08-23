@@ -1,4 +1,6 @@
-const EditButtons = ({ isEditing, editClick, saveClick, deleteFunc }) => {
+const EditButtons = ({ isEditing, editClick, saveClick, deleteFunc, }) => {
+
+
   return isEditing ? (
     <td>
       <button onClick={saveClick}>Save</button>
@@ -8,7 +10,7 @@ const EditButtons = ({ isEditing, editClick, saveClick, deleteFunc }) => {
       <button onClick={deleteFunc}>Delete</button>
       <button onClick={editClick}>Edit</button>
     </td>
-  );
+  )
 };
 
 export default EditButtons;
