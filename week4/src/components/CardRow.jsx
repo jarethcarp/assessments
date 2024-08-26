@@ -15,22 +15,6 @@ const CardRow = ({ initalCardData, initalIsEditing, deleteFunc }) => {
   const [mana, setMana] = useState(initalCardData.mana);
   const [link, setLink] = useState(initalCardData.link);
 
-  axios
-    .get(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
-    .catch(function (error) {
-      console.log(error);
-      setCardName("Please put in the name of a MTG card");
-      setCardType("");
-      setMana("");
-    })
-    .then((res) => {
-      if (res.data.object === "card") {
-        setCardName(res.data.name);
-        setCardType(res.data.type_line);
-        setMana(res.data.mana_cost);
-        setLink(res.data.scryfall_uri);
-      }
-    });
 
   // For toggling the ability to edit
   const changeEditmode = () => {
