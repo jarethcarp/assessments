@@ -9,8 +9,12 @@ export class Human extends Model {
     return this.toJSON();
   }
 
+  // I didn't use this
   getFullName() {
-    // TODO: Implement this method
+    console.log("test")
+    console.log(this.firstName, this.lName)
+    const human1 = this.findOne()
+    return human1.firstName + " " + human1.lName
   }
 }
 
@@ -19,6 +23,30 @@ export class Human extends Model {
 //??
 
 // TODO: Human.init()
+Human.init({
+  humanId: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
+  fname: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  lname: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+},
+{
+  modelName: 'human',
+  sequelize: db
+})
 
 export class Animal extends Model {
   [util.inspect.custom]() {
@@ -27,7 +55,36 @@ export class Animal extends Model {
 }
 
 // TODO: Animal.init()
+Animal.init({
+  animalId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  humanId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  species: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  birthYear: {
+    type: DataTypes.INTEGER
+  },
+},
+{
+  modelName: 'animals',
+  sequelize: db
+})
 
 // TODO: Define Relationship
+Human.hasMany(Animal, {foreignKey: 'humanId'})
+Animal.belongsTo(Human, {foreignKey: 'humanId'})
 
 export default db;
