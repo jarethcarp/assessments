@@ -14,6 +14,10 @@ export class Human extends Model {
   }
 }
 
+// console.log(this.firstName, this.lName)
+// const human1 = await Human.findOne()
+//??
+
 // TODO: Human.init()
 
 export class Animal extends Model {

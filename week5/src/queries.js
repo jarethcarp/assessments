@@ -3,6 +3,7 @@ import { Animal, Human } from './model.js';
 
 // Get the human with the primary key 2
 export const query1 = null;
+console.log(query1)
 
 // Get the first animal whose species is "fish"
 export const query2 = null;
