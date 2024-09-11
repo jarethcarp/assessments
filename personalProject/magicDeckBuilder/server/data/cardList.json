@@ -1,0 +1,20 @@
+[
+    {
+      "deckId": 1,
+      "cardName": "Elspeth, Sun's Champion",
+      "cardMana": "{4}{W}{W}",
+      "cardColors": ["W"],
+      "cardprice": "0.86",
+      "cardCount": 1,
+      "cardImg": "https://cards.scryfall.io/normal/front/4/6/46dc2519-2729-4bbd-8892-fab6186bf116.jpg?1706240571"
+    },
+    {
+      "deckId": 2,
+      "cardName": "Kiora, the Crashing Wave",
+      "cardMana": "{2}{G}{U}",
+      "cardColors": ["G", "U"],
+      "cardprice": "1.24",
+      "cardCount": 1,
+      "cardImg": "https://cards.scryfall.io/normal/front/0/c/0c5c6b15-b72d-4341-92c2-7469210452da.jpg?1562839809"
+    }  
+]

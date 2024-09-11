@@ -6,9 +6,9 @@ import axios from "axios";
 import LoginForm from "../components/auth/loginForm";
 
 
-const Auth = ({ onLogin }) => {
+const Auth = () => {
   const nav = useNavigate()
-  const isLoggedIn = useSelector((state) => state.isLoggedIn)
+  // const isLoggedIn = useSelector((state) => state.isLoggedIn)
   const dispatch = useDispatch()
 
 
@@ -30,7 +30,7 @@ const Auth = ({ onLogin }) => {
       <LoginForm onLogin={handleLogin} />
       <br/>
       <h2>Don't have an account?</h2> 
-      <NavLink to="./register" className='text-blue'>Register Here</NavLink>
+      <NavLink to="./register" className='text-blue-dark'>Register Here</NavLink>
     </>
   );
 };

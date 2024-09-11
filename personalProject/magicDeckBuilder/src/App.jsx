@@ -10,11 +10,9 @@ function App() {
       <div>
         <div>
           <Header />
-
         </div>
         <div className='main'>
           <Outlet />
-
         </div>
       </div>
     </>

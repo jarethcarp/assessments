@@ -1,0 +1,14 @@
+[
+    {
+        "userId": 1,
+        "deckName": "Elspeth Duel Deck",
+        "colors": "{W}",
+        "format": "Legacy"
+    },
+    {
+        "userId": 1,
+        "deckName": "Kiora Duel Deck",
+        "colors": "{B}{G}",
+        "format": "Legacy"
+    }
+]

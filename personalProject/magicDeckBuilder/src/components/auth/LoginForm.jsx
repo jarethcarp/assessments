@@ -21,7 +21,7 @@ const loginForm = ({ onLogin }) => {
           <input
             name="email"
             id="email"
-            type="text"
+            type="email"
             required
             onChange={(e) => setEmailValue(e.target.value)}
             className="loginFormInput"
