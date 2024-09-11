@@ -1,8 +1,12 @@
 import React from 'react'
+import Header from './Header'
 
 const ErrorPage = () => {
   return (
-    <div>ErrorPage</div>
+    <>
+      <Header />
+      <div>ErrorPage</div>
+    </>
   )
 }
 

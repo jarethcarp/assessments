@@ -1,15 +1,21 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import Header from './components/Header'
+import Header from './pages/Header'
 
 function App() {
   
 
   return (
     <>
-      <div className=''>
-        <Header />
-        <Outlet />
+      <div>
+        <div>
+          <Header />
+
+        </div>
+        <div className='main'>
+          <Outlet />
+
+        </div>
       </div>
     </>
   )

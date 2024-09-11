@@ -46,17 +46,42 @@ User.init({
     sequelize: db,
 })
 
-console.log('Creating database')
 
-await db.sync({ force: true })
+// Come back to this latter
 
-const usersToCreate = []
-for (let i = 0; i<10; i++) {
-    const email = `user${i}@test.com`
-    usersToCreate.push(User.create({ email: email, password: 'password', logged_in: false, user_token: i, token_experation: 'Temp' }))
-}
+// export class Decks extends Model {
+//     [util.inspect.custom]() {
+//         return this.toJSON()
+//     }
+// }
 
-const usersInDB = await Promise.all(usersToCreate)
+// Decks.init({
+//     id: {
+//         type: DataTypes.INTEGER,
+//         autoIncrement: true,
+//         primaryKey: true,
+//     },
+//     user_id: {
+//         type: DataTypes.INTEGER,
 
-await db.close()
-console.log("finished")
+//     }
+// })
+
+
+//This code seeds the database
+
+// console.log('Creating database')
+
+// await db.sync({ force: true })
+
+// const usersToCreate = []
+// for (let i = 0; i<10; i++) {
+//     const email = `user${i}@test.com`
+//     usersToCreate.push(User.create({ email: email, password: 'password', logged_in: false, user_token: i, token_experation: 'Temp' }))
+// }
+
+// const usersInDB = await Promise.all(usersToCreate)
+
+// await db.close()
+// console.log("finished")
+

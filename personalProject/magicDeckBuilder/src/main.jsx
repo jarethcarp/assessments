@@ -6,12 +6,15 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store.js";
 import App from "./App.jsx";
-import ErrorPage from "./components/ErrorPage.jsx";
-import Home from './components/home'
-import DeckBuilder from "./components/DeckBuilder.jsx";
-import PublicDecks from "./components/PublicDecks.jsx";
-import Auth from "./components/Auth.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import Home from './pages/home.jsx'
+import DeckBuilder from "./pages/DeckBuilder.jsx";
+import PublicDecks from "./pages/PublicDecks.jsx";
+import Auth from "./pages/Auth.jsx";
+import Register from "./pages/Register.jsx";
 import axios from "axios";
 import "./index.css";
 
@@ -30,11 +33,10 @@ const router = createBrowserRouter(
       <Route 
       path="/auth"
       element={<Auth />} 
-      loader={async ({ params }) => {
-        const { id } = params
-        const res = await axios.get(`/api/user/`)
-        return { user: res.data }
-      }}
+      />
+      <Route
+      path="/auth/register"
+      element={<Register />}
       />
     </Route>
   )
@@ -42,6 +44,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );
