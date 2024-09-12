@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import App from "./App.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import Home from './pages/home.jsx'
+import Home from './pages/Decks.jsx'
 import DeckBuilder from "./pages/DeckBuilder.jsx";
 import PublicDecks from "./pages/PublicDecks.jsx";
 import Auth from "./pages/Auth.jsx";
