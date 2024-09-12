@@ -1,15 +1,16 @@
 import { DataTypes, Model } from "sequelize";
 import util from 'util'
-import bcryptjs from 'bcryptjs'
 import connectToDB from "./db.js";
 
 export const db = await connectToDB('postgresql:///deck')
+
 
 export class User extends Model {
     [util.inspect.custom]() {
         return this.toJSON()
     }
 }
+
 
 User.init({
     id: {
@@ -46,11 +47,13 @@ User.init({
 
 // Come back to this latter
 
+
 export class Decks extends Model {
     [util.inspect.custom]() {
         return this.toJSON()
     }
 }
+
 
 Decks.init({
     id: {
@@ -58,11 +61,11 @@ Decks.init({
         autoIncrement: true,
         primaryKey: true,
     },
-    user_id: {
-        type: DataTypes.STRING,
+    userId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    deck_name: {
+    deckName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -74,7 +77,12 @@ Decks.init({
         type: DataTypes.STRING,
         allowNull: false,
     }
+}, {
+    modelName: 'decks',
+    sequelize: db
 })
+
+
 
 export class Card_List extends Model {
     [util.inspect.custom]() {
@@ -82,46 +90,51 @@ export class Card_List extends Model {
     }
 }
 
+
 Card_List.init({
-    card_id: {
+    cardId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    deck_id: {
+    deckId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    card_Name: {
+    cardName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    card_Mana: {
+    cardMana: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    card_Color: {
+    cardColor: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    card_Price: {
+    cardPrice: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    card_Count: {
+    cardCount: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    card_Img: {
+    cardImg: {
         type: DataTypes.STRING,
         allowNull: false,
     }
+}, {
+    modelName: 'cardList',
+    sequelize: db
 })
 
-User.hasMany(Decks, { foreignKey: id })
-Decks.belongsTo(User, { foreignKey: user_id})
 
-Decks.hasMany(Card_List, { foreignKey: id })
-Card_List.belongsTo(Decks, { foreignKey: deck_id})
+User.hasMany(Decks, { foreignKey: 'id' })
+Decks.belongsTo(User, { foreignKey: 'userId' })
+
+Decks.hasMany(Card_List, { foreignKey: 'id' })
+Card_List.belongsTo(Decks, { foreignKey: 'deck_id' })
 
 

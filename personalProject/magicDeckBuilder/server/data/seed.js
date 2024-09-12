@@ -1,6 +1,7 @@
-import { User, Decks,Card_List,db } from "../model.js"
+import { User, Decks, Card_List, db } from "../model.js"
 import deckData from './deckData.json' assert { type: 'json' }
 import cardListData from './cardList.json' assert { type: 'json' }
+import bcryptjs from 'bcryptjs'
 
 console.log('Creating database')
 
@@ -34,7 +35,7 @@ const decksInDB = await Promise.all(
 )
 
 console.log(decksInDB)
-
+console.log('Start of Card list')
 const cardListInDB = await Promise.all(
     cardListData.map((cardList) => {
         const { deckId, cardName, cardMana, cardColor, cardPrice, cardCount, cardImg } = cardList
@@ -45,7 +46,7 @@ const cardListInDB = await Promise.all(
             cardMana: cardMana,
             cardColor: cardColor,
             cardPrice: cardPrice,
-            cardColor: cardCount,
+            cardCount: cardCount,
             cardImg: cardImg
         })
 
