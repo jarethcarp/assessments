@@ -7,9 +7,10 @@ export default {
   theme: {
     extend: { 
       colors: {
-        'primary': '#E6EFEC',
+        'primary': '#FFFFFF',
         'primary-dark': '#08080C',
         'gray': '#596475',
+        'gray2': '#D1DCEC',
         "gold": '#ECA400',
         "gold-dark": '#CC8F00',
         'blue': '#1AC4EF',

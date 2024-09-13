@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, } from 'react-router-dom'
 import Header from './pages/Header'
 
 function App() {

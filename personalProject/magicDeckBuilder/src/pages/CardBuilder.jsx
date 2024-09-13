@@ -1,13 +1,19 @@
-import React from "react";
+import React from 'react'
 import { useLoaderData } from "react-router-dom";
-import DeckRows from "../components/decks/deckRows";
+import CardRows from '../components/cardList/CardRows';
 
-const Decks = () => {
-  
-  const { decks } = useLoaderData()
-  const deckListItems = decks.map((deck) => {
-    return <DeckRows deckData={deck} />;
+const CardBuilder = () => {
+
+  const { cards } = useLoaderData()
+  const cardListItems = cards.map((card) => {
+    console.log(card)
+    return <CardRows cardData={card} />;
   });
+
+  console.log(cards)
+
+  const rows = <CardRows />
+  // const rows = 'Test and some other stuff'
 
   return (
     <div class="font-sans overflow-x-auto shadow-sm">
@@ -21,20 +27,21 @@ const Decks = () => {
               Name
             </th>
             <th class="p-4 text-left text-xs font-semibold text-gray-800">
-              Colors
+              Mana Cost
             </th>
             <th class="p-4 text-left text-xs font-semibold text-gray-800">
-              Format
+              Price
             </th>
           </tr>
         </thead>
 
         <tbody class="whitespace-nowrap">
-          {deckListItems}
+          {cardListItems}
+          {/* Test */}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default Decks;
+export default CardBuilder

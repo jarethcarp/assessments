@@ -84,14 +84,14 @@ Decks.init({
 
 
 
-export class Card_List extends Model {
+export class CardList extends Model {
     [util.inspect.custom]() {
         return this.toJSON()
     }
 }
 
 
-Card_List.init({
+CardList.init({
     cardId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -134,7 +134,7 @@ Card_List.init({
 User.hasMany(Decks, { foreignKey: 'id' })
 Decks.belongsTo(User, { foreignKey: 'userId' })
 
-Decks.hasMany(Card_List, { foreignKey: 'id' })
-Card_List.belongsTo(Decks, { foreignKey: 'deck_id' })
+Decks.hasMany(CardList, { foreignKey: 'id' })
+CardList.belongsTo(Decks, { foreignKey: 'deck_id' })
 
 

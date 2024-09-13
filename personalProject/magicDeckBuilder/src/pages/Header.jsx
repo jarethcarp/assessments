@@ -22,7 +22,6 @@ const Header = () => {
   const handleLogout = async (e) => {
     e.preventDefault()
     const res = await axios.post('/api/logout')
-    console.log("res.data.logged_in: ",res.data.logged_in)
     if (res.data.success) {
       dispatch({
         type: 'USER_LOGOUT'
