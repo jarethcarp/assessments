@@ -41,8 +41,8 @@ const Header = () => {
       <>
           <nav className='flex justify-between items-center h-24 px-10 shadow-md bg-gold text-primary-dark m-0'>
               <div className='flex w-1/4 justify-between items-center'>
-                <NavLink to="/" className='navButton'>YourDecks</NavLink>
-                <NavLink to="/edit" className='navButton'>Deckbuilder</NavLink>
+              <NavLink to="/" className='navButton'>Home</NavLink>
+                <NavLink to="/decks" className='navButton'>Your Decks</NavLink>
                 <NavLink to="/public-decks" className='navButton'>PublicDecks</NavLink>
               </div>
               
@@ -54,9 +54,8 @@ const Header = () => {
       </>
     ) : (
       <nav className='flex justify-between items-center h-24 px-10 shadow-md bg-gold text-primary-dark m-0'>
-              <div className='flex w-1/4 justify-between items-center'>
-                <NavLink to="/" className='navButton'>Your Decks</NavLink>
-                <NavLink to="/edit" className='navButton'>Deckbuilder</NavLink>
+              <div className='flex w-1/4 justify-normal items-center'>
+                <NavLink to="/" className='navButton'>Home</NavLink>
                 <NavLink to="/public-decks" className='navButton'>PublicDecks</NavLink>
               </div>
               

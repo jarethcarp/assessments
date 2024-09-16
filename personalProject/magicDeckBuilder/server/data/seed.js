@@ -38,7 +38,7 @@ console.log(decksInDB)
 console.log('Start of Card list')
 const cardListInDB = await Promise.all(
     cardListData.map((cardList) => {
-        const { deckId, cardName, cardMana, cardColor, cardPrice, cardCount, cardImg } = cardList
+        const { deckId, cardName, cardMana, cardColor, cardPrice, cardCount, cardType, cardImg } = cardList
 
         const newCardList = CardList.create({
             deckId: deckId,
@@ -47,6 +47,7 @@ const cardListInDB = await Promise.all(
             cardColor: cardColor,
             cardPrice: cardPrice,
             cardCount: cardCount,
+            cardType: cardType,
             cardImg: cardImg
         })
 

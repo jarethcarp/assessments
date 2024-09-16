@@ -118,6 +118,10 @@ CardList.init({
         allowNull: false,
     },
     cardCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    cardType: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -131,7 +135,7 @@ CardList.init({
 })
 
 
-User.hasMany(Decks, { foreignKey: 'id' })
+User.hasMany(Decks, { foreignKey: 'userId' })
 Decks.belongsTo(User, { foreignKey: 'userId' })
 
 Decks.hasMany(CardList, { foreignKey: 'id' })

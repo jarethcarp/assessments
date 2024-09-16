@@ -1,9 +1,26 @@
 import React from 'react'
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-const EditBnt = () => {
-  return (
+const EditBnt = ({ deckId, isEditing, clickEdit, isPublic }) => {
+  const nav = useNavigate()
+
+  const deleteDeck = () => {
+    axios.post("/api/delete-deck", {deckId:deckId})
+    .then((res) => {
+      if (res.data.success) {
+         nav('/decks')
+      } else {
+         console.log("Failed to delete Deck")
+      }
+   });
+  }
+
+
+  
+  return isPublic ? (
     <td class="p-4">
-            <button class="mr-4" title="Edit">
+            <button class="mr-4 active:bg-black" title="Edit" onClick={clickEdit} >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-blue-500 hover:fill-blue"
                 viewBox="0 0 348.882 348.882">
                 <path
@@ -14,7 +31,7 @@ const EditBnt = () => {
                 data-original="#000000" />
             </svg>
             </button>
-            <button class="mr-4" title="Delete">
+            <button class="mr-4 active:bg-black" title="Delete" onClick={() => deleteDeck()}>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-red-500 hover:fill-red-700" viewBox="0 0 24 24">
                 <path
                 d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
@@ -24,6 +41,8 @@ const EditBnt = () => {
             </svg>
             </button>
     </td>
+  ) : (
+    <></>
   )
 }
 

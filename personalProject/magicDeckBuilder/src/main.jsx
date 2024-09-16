@@ -10,7 +10,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import App from "./App.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import Home from "./pages/Decks.jsx";
+import Home from "./pages/Home.jsx";
+import Decks from "./pages/Decks.jsx";
 import CardBuilder from "./pages/CardBuilder.jsx";
 import PublicDecks from "./pages/PublicDecks.jsx";
 import Auth from "./pages/Auth.jsx";
@@ -24,10 +25,10 @@ const router = createBrowserRouter(
       <Route
         index
         element={<Home />}
-        loader={async () => {
-          const res = await axios.get("api/decks");
-          return { decks: res.data };
-        }}
+        // loader={async () => {
+        //   const res = await axios.get("api/decks");
+        //   return { decks: res.data };
+        // }}
       />
       <Route
         path="/edit/:id"
@@ -43,6 +44,14 @@ const router = createBrowserRouter(
         element={<PublicDecks />}
         loader={async () => {
           const res = await axios.get("api/all-decks");
+          return { decks: res.data };
+        }}
+      />
+      <Route
+        path="/decks"
+        element={<Decks />}
+        loader={async () => {
+          const res = await axios.get("api/decks");
           return { decks: res.data };
         }}
       />

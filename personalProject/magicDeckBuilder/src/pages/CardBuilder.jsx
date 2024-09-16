@@ -1,43 +1,41 @@
 import React from 'react'
 import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+import { FaRegPlusSquare } from "react-icons/fa"
 import CardRows from '../components/cardList/CardRows';
+import CardHeader from '../components/cardList/cardHeader';
 
 const CardBuilder = () => {
 
   const { cards } = useLoaderData()
   const cardListItems = cards.map((card) => {
     console.log(card)
-    return <CardRows cardData={card} />;
+    return <CardRows cardData={card} isNotPublic={true} />;
   });
 
-  console.log(cards)
+  
 
-  const rows = <CardRows />
-  // const rows = 'Test and some other stuff'
+  const addCard = () => {
+    axios.post("/api/add-deck")
+    .then((res) => {
+      if (res.data.success) {
+         nav('/decks')
+      } else {
+         console.log("Failed to make Deck")
+      }
+   });
+  }
+  
+  
 
   return (
     <div class="font-sans overflow-x-auto shadow-sm">
+      <FaRegPlusSquare className="size-5 hover:text-blue active:bg-black" onClick={() => addCard()}/>
       <table class="min-w-full bg-gray2">
-        <thead class="bg-gray-100 whitespace-nowrap bg-slate-400">
-          <tr>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
-              Actions
-            </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
-              Name
-            </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
-              Mana Cost
-            </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
-              Price
-            </th>
-          </tr>
-        </thead>
+        <CardHeader />
 
         <tbody class="whitespace-nowrap">
           {cardListItems}
-          {/* Test */}
         </tbody>
       </table>
     </div>
