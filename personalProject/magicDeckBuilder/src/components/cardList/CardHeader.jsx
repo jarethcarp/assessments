@@ -2,7 +2,7 @@ import React from 'react'
 
 const cardHeader = () => {
   return(
-    <thead class="bg-gray-100 whitespace-nowrap bg-slate-400 w-1">
+    <thead class="whitespace-nowrap bg-slate-400 w-1">
           <tr>
             <th class="p-4 text-left text-xs font-semibold text-gray-800">
               Actions

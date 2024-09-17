@@ -8,8 +8,10 @@ import CardHeader from '../components/cardList/cardHeader';
 const CardBuilder = () => {
 
   const { cards } = useLoaderData()
+  console.log(cards)
   const cardListItems = cards.map((card) => {
     console.log(card)
+    console.log(card.cardLists[0].cardCount)
     return <CardRows cardData={card} isNotPublic={true} />;
   });
 

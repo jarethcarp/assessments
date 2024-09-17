@@ -30,7 +30,7 @@ const DeckRows = ({ deckData, isNotPublic }) => {
   };
 
   return (
-    <tr class="hover:bg-gray-50">
+    <tr class="hover:bg-slate-300">
       <EditBnt
         deckId={deckData.id}
         clickEdit={changeEditmode}

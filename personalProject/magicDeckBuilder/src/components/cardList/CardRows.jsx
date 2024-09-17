@@ -3,13 +3,14 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import EditBnt from "../EditBnt";
 import CardProps from "./CardProps";
+import axios from "axios";
 
-const CardRows = ({ cardData ,isNotPublic }) => {
+const CardRows = ({ cardData, isNotPublic }) => {
   const [isEditing, setisEditing] = useState(true);
-  const [cardCount, setCardCount] = useState(cardData.cardCount);
-  const [cardName, setCardName] = useState(cardData.cardName);
-  const [cardMana, setCardMana] = useState(cardData.cardMana);
-  const [cardPrice, setCardPrice] = useState(parseFloat(cardData.cardPrice * cardData.cardCount).toFixed(2));
+  const [cardCount, setCardCount] = useState(cardData.cardLists[0].cardCount);
+  const [cardName, setCardName] = useState(cardData.name);
+  const [cardMana, setCardMana] = useState(cardData.manaCost);
+  const [cardPrice, setCardPrice] = useState(parseFloat(cardData.price * cardData.cardCount).toFixed(2));
 
   const changeEditmode = () => {
     if (isEditing) {
@@ -18,7 +19,7 @@ const CardRows = ({ cardData ,isNotPublic }) => {
     } else {
       console.log(isEditing);
       setisEditing(!isEditing);
-      axios.get(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
+      axios.get(`api/card-name`)
       .catch(function (error) {
         console.log(error);
       })
@@ -32,13 +33,13 @@ const CardRows = ({ cardData ,isNotPublic }) => {
   };
 
   return (
-    <tr class="hover:bg-gray-50">
+    <tr class="hover:bg-slate-300">
       <EditBnt 
         cardId={cardData.cardId}
         clickEdit={changeEditmode}
         isPublic={isNotPublic}
       />
-      <td class="p-4 text-[15px] text-gray-800">
+      <td class="p-4 text-[15px]">
         <CardProps
           isEditing={isEditing}
           value={cardCount}

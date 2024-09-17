@@ -1,7 +1,7 @@
 import express from "express";
 import session from "express-session";
 import ViteExpress from "vite-express";
-import { User, Decks, CardList } from "./server/model.js";
+import { User, Decks, CardList, CardStore } from "./server/model.js";
 import bcryptjs from "bcryptjs";
 
 const app = express();
@@ -117,19 +117,33 @@ app.put("/api/update-deck", async (req, res) => {
 
 app.get("/api/cardList/:id", async (req, res) => {
   const { id } = req.params;
-  // const deckList = await CardList.findAll()
-  const deckList = await CardList.findAll({ where: { deckId: id } });
-  res.send(deckList);
-  console.log("Finished /api/cardList/", id);
+  const deckList = await CardList.findAll({ where: { deckId: id }});
+  const allCards = await CardStore.findAll({include: {
+      model: CardList,
+      select: ['cardCount']
+    }})
+  console.log(allCards)
+  // Gets the list of names
+  const newCard = deckList.map((names) => {
+    return names.cardName
+  })
+
+  // creates a new arry with all the cards in decklist with all of the information needed
+  let newCardList = allCards.filter((newName) => newCard.includes(newName.name))
+  console.log(newCardList)
+
+
+  res.send(newCardList)
 });
 
-app.post("/api/add-card/:id", async (req, res) => {
+
+
+app.post("/api/add-card", async (req, res) => {
   if (req.session.userId) {
     const newCard = await CardList.create({
       userId: req.session.userId,
-      deckName: "New Deck",
+      cardName: "New Deck",
       colors: "{C}",
-      format: "Any",
     });
 
     console.log("Finished /api/add-deck");
