@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import EditBnt from "../EditBnt";
+import EditBnt from "./CardEditBnt";
 import CardProps from "./CardProps";
 import axios from "axios";
 
@@ -10,32 +10,38 @@ const CardRows = ({ cardData, isNotPublic }) => {
   const [cardCount, setCardCount] = useState(cardData.cardLists[0].cardCount);
   const [cardName, setCardName] = useState(cardData.name);
   const [cardMana, setCardMana] = useState(cardData.manaCost);
-  const [cardPrice, setCardPrice] = useState(parseFloat(cardData.price * cardData.cardCount).toFixed(2));
+  const [cardPrice, setCardPrice] = useState((cardData.prices * cardCount).toFixed(2));
 
   const changeEditmode = () => {
     if (isEditing) {
-      console.log(isEditing);
       setisEditing(!isEditing);
     } else {
-      console.log(isEditing);
       setisEditing(!isEditing);
-      axios.get(`api/card-name`)
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then((res) => {
-        setCardCount(cardCount)
-        setCardName(res.data.name);
-        setCardMana(res.data.manaCost)
-        // setCardPrice(res.data.prices[usd])
-      })
+      axios
+        .get(`/api/card-name/${cardName}`)
+        .then((res) => {
+          if (!res.data.success) {
+            console.log("Error");
+            axios.get(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
+            .then((res) => {
+              setCardName(res.data.name);
+              setCardMana(res.data.mana_cost);
+            })
+          } else {
+            console.log("This is the card: ", res.data);
+            setCardCount(cardCount);
+            setCardName(res.data.card.name);
+            setCardMana(res.data.card.manaCost);
+            // setCardPrice(res.data.prices[usd])
+          }
+        });
     }
   };
 
   return (
     <tr class="hover:bg-slate-300">
-      <EditBnt 
-        cardId={cardData.cardId}
+      <EditBnt
+        cardId={cardData.cardLists[0]}
         clickEdit={changeEditmode}
         isPublic={isNotPublic}
       />

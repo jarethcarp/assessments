@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import EditBnt from "../EditBnt";
+import EditBnt from "../DeckEditBnt";
 import DeckEditName from "./DeckEditName";
 import DeckEditColors from "./DeckEditColors";
 import DeckEditFormat from "./DeckEditFormat";

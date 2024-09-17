@@ -1,29 +1,29 @@
 import React from 'react'
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaRegPlusSquare } from "react-icons/fa"
 import CardRows from '../components/cardList/CardRows';
 import CardHeader from '../components/cardList/cardHeader';
 
 const CardBuilder = () => {
-
+  const nav = useNavigate()
   const { cards } = useLoaderData()
   console.log(cards)
   const cardListItems = cards.map((card) => {
     console.log(card)
-    console.log(card.cardLists[0].cardCount)
+    console.log(card.cardLists[0].deckId)
     return <CardRows cardData={card} isNotPublic={true} />;
   });
 
   
 
   const addCard = () => {
-    axios.post("/api/add-deck")
+    axios.post("/api/add-card")
     .then((res) => {
       if (res.data.success) {
-         nav('/decks')
+         nav(`/edit/${card.cardLists[0].deckId}`)
       } else {
-         console.log("Failed to make Deck")
+         console.log("Failed to make Card")
       }
    });
   }

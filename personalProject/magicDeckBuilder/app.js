@@ -86,21 +86,22 @@ app.post("/api/delete-deck", async (req, res) => {
 });
 
 app.put("/api/update-deck", async (req, res) => {
-  console.log('Start of update')
+  console.log("Start of update");
   const { id, deckName, deckcolor, deckFormat } = req.body;
   const updateDeck = await Decks.findOne({ where: { id: id } });
 
   if (updateDeck.userId === req.session.userId) {
-    console.log('Updating')
-    Decks.update({
-      deckName: deckName,
-      colors: deckcolor,
-      format: deckFormat,
-    }, { where: { id: id } });
+    console.log("Updating");
+    Decks.update(
+      {
+        deckName: deckName,
+        colors: deckcolor,
+        format: deckFormat,
+      },
+      { where: { id: id } }
+    );
 
     res.send(updateDeck);
-
-
   } else {
     console.log("Did not Finished /api/update-deck");
     d;
@@ -117,42 +118,79 @@ app.put("/api/update-deck", async (req, res) => {
 
 app.get("/api/cardList/:id", async (req, res) => {
   const { id } = req.params;
-  const deckList = await CardList.findAll({ where: { deckId: id }});
-  const allCards = await CardStore.findAll({include: {
+  req.session.deckId = +id;
+  const deckList = await CardList.findAll({ where: { deckId: id } });
+  const allCards = await CardStore.findAll({
+    include: {
       model: CardList,
-      select: ['cardCount']
-    }})
-  console.log(allCards)
+      select: ["cardCount"],
+    },
+  });
   // Gets the list of names
   const newCard = deckList.map((names) => {
-    return names.cardName
-  })
+    return names.cardName;
+  });
 
   // creates a new arry with all the cards in decklist with all of the information needed
-  let newCardList = allCards.filter((newName) => newCard.includes(newName.name))
-  console.log(newCardList)
+  let newCardList = allCards.filter((newName) =>
+    newCard.includes(newName.name)
+  );
 
-
-  res.send(newCardList)
+  res.send(newCardList);
 });
 
 
+app.get("/api/card-name/:name", async (req, res) => {
+  const { name } = req.params;
+  const card = await CardStore.findOne({ where: { name: name } });
+  if (!card) {
+    console.error(`There is no card with the name ${name}`)
+    return res.send({ success: false })
+  } else {
+    return res.send({ card, success: true});
+  }
+});
 
 app.post("/api/add-card", async (req, res) => {
+  const deckId = req.session.deckId
   if (req.session.userId) {
+    console.log(req.session)
+    console.log(deckId)
     const newCard = await CardList.create({
-      userId: req.session.userId,
-      cardName: "New Deck",
-      colors: "{C}",
+      deckId: deckId,
+      cardId: 2,
+      cardName: "Aetherize",
+      cardCount: 1
     });
 
-    console.log("Finished /api/add-deck");
 
+    console.log("Finished /api/add-deck");
     return res.send({
       success: true,
     });
   } else {
+    console.log("Finished /api/add-deck");
     return res.send({
+      success: false,
+    });
+  }
+});
+
+app.post("/api/delete-card", async (req, res) => {
+  const { id } = req.body;
+  const deck = await CardList.findOne({ where: { id: id } });
+  console.log(deck)
+  console.log("userId: ", deck.deckId, "session Id: ", req.session.deckId)
+  if (deck.deckId === req.session.deckId) {
+    console.log("Finished /api/delete-card");
+    CardList.destroy({ where: { id: id } });
+    return res.send({
+      success: true,
+    });
+  } else {
+    console.log("Finished /api/delete-card");
+    return res.send({
+      message: "Failed to delete",
       success: false,
     });
   }
@@ -172,6 +210,7 @@ app.get("/api/session-check", async (req, res) => {
       success: true,
       logged_in: true,
       userId: req.session.userId,
+      deckId: +req.session.deckId,
     });
   } else {
     console.log("Finished /api/session-check");
