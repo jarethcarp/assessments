@@ -14,6 +14,9 @@ const cardHeader = () => {
               Name
             </th>
             <th class="p-4 text-left text-xs font-semibold text-gray-800">
+              Card Type
+            </th>
+            <th class="p-4 text-left text-xs font-semibold text-gray-800">
               Mana Cost
             </th>
             <th class="p-4 text-left text-xs font-semibold text-gray-800">

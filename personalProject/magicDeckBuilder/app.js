@@ -123,20 +123,28 @@ app.get("/api/cardList/:id", async (req, res) => {
     include: {
       model: CardList,
       select: ["cardCount"],
+      where: { deckId: id }
     },
   });
+  console.log("#######################################   /api/cardList/:id was triggered   ########################################################")
+  allCards.map((card) => { //This will clean up CardList everytime someone gets a card list
+    if(card.cardLists.length > 1) {
+      for (let i=0; i<card.cardLists.length-1; i++){
+        CardList.destroy({ where: { id: card.cardLists[i].id } })
+      }
+    }
+  })
+  
   // Gets the list of names
   const newCard = deckList.map((id) => {
     return id.cardId;
   });
-  console.log(newCard)
 
   // creates a new arry with all the cards in decklist with all of the information needed
   let newCardList = allCards.filter((newName) =>
     newCard.includes(newName.id)
   );
 
-  console.log(newCardList)
   res.send(newCardList);
 });
 
@@ -155,18 +163,14 @@ app.get("/api/card-name/:name", async (req, res) => {
 app.post("/api/add-card", async (req, res) => {
   const deckId = req.session.deckId
   const cardCount = req.session.cardCount
-  console.log("Req.body: ", req.body)
   // const cardCheck = await CardList.findOne({ where: { deckId: deckId, card_name:  }})
   if (req.session.userId) {
-    console.log(req.session)
-    console.log(deckId)
     const newCard = await CardList.create({
       deckId: deckId,
       cardId: 62,
-      cardName: `New Card ${cardCount}`,
+      cardName: `New Card`,
       cardCount: 1
     });
-    console.log(newCard)
     req.session.cardCount += 1
     console.log("Finished /api/add-card");
     return res.send({
@@ -203,7 +207,6 @@ app.post("/api/delete-card", async (req, res) => {
 
 app.put('/api/update-cardStore', async (req,res) => {
   const { scryfallData } = req.body
-  console.log(scryfallData.image_uris.normal)
   const name = scryfallData.name
   const cmc = scryfallData.cmc
   const imageUris = scryfallData.image_uris.normal
@@ -233,15 +236,19 @@ app.put('/api/update-cardStore', async (req,res) => {
     prices,
   });
   return res.send({
-    success: true
+    success: true,
+    newCard: newCard
   })
 })
 
 app.put('/api/update-card', async (req,res) => {
-  const { scryfallData, cardData } = req.body
+  const { id, cardName, cardCount, cardId, deckId } = req.body.cardData
   CardList.update(
     {
-      deckName: deckName,
+      cardName,
+      cardCount,
+      cardId,
+      deckId,
     },
     { where: { id: id } }
   );
