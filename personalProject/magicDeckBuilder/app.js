@@ -43,7 +43,6 @@ app.get("/api/decks", loginRequired, async (req, res) => {
 app.get("/api/all-decks", async (req, res) => {
   const decks = await Decks.findAll();
   res.send(decks);
-  console.log("Finished /api/decks");
 });
 
 app.post("/api/add-deck", async (req, res) => {
@@ -127,15 +126,17 @@ app.get("/api/cardList/:id", async (req, res) => {
     },
   });
   // Gets the list of names
-  const newCard = deckList.map((names) => {
-    return names.cardName;
+  const newCard = deckList.map((id) => {
+    return id.cardId;
   });
+  console.log(newCard)
 
   // creates a new arry with all the cards in decklist with all of the information needed
   let newCardList = allCards.filter((newName) =>
-    newCard.includes(newName.name)
+    newCard.includes(newName.id)
   );
 
+  console.log(newCardList)
   res.send(newCardList);
 });
 
@@ -144,7 +145,7 @@ app.get("/api/card-name/:name", async (req, res) => {
   const { name } = req.params;
   const card = await CardStore.findOne({ where: { name: name } });
   if (!card) {
-    console.error(`There is no card with the name ${name}`)
+    console.error(`There is no card in my database with the name ${name}`)
     return res.send({ success: false })
   } else {
     return res.send({ card, success: true});
@@ -153,23 +154,27 @@ app.get("/api/card-name/:name", async (req, res) => {
 
 app.post("/api/add-card", async (req, res) => {
   const deckId = req.session.deckId
+  const cardCount = req.session.cardCount
+  console.log("Req.body: ", req.body)
+  // const cardCheck = await CardList.findOne({ where: { deckId: deckId, card_name:  }})
   if (req.session.userId) {
     console.log(req.session)
     console.log(deckId)
     const newCard = await CardList.create({
       deckId: deckId,
-      cardId: 2,
-      cardName: "Aetherize",
+      cardId: 62,
+      cardName: `New Card ${cardCount}`,
       cardCount: 1
     });
-
-
-    console.log("Finished /api/add-deck");
+    console.log(newCard)
+    req.session.cardCount += 1
+    console.log("Finished /api/add-card");
     return res.send({
+      card: newCard,
       success: true,
     });
   } else {
-    console.log("Finished /api/add-deck");
+    console.log("Finished /api/add-card");
     return res.send({
       success: false,
     });
@@ -195,6 +200,52 @@ app.post("/api/delete-card", async (req, res) => {
     });
   }
 });
+
+app.put('/api/update-cardStore', async (req,res) => {
+  const { scryfallData } = req.body
+  console.log(scryfallData.image_uris.normal)
+  const name = scryfallData.name
+  const cmc = scryfallData.cmc
+  const imageUris = scryfallData.image_uris.normal
+  const manaCost = scryfallData.mana_cost
+  const typeLine = scryfallData.type_line
+  const colors = scryfallData.colors
+  const colorIdentity = scryfallData.color_identity
+  let prices = scryfallData.prices.usd
+
+  if (!prices) {
+    prices = scryfallData.prices.usd_foil
+  }
+  if (!prices) {
+    prices = "0.00"
+  }
+
+  // console.log(cardInfo.prices.usd_foil)
+
+  const newCard = await CardStore.create({
+    name: name,
+    imageUris,
+    manaCost,
+    cmc,
+    typeLine,
+    colors,
+    colorIdentity,
+    prices,
+  });
+  return res.send({
+    success: true
+  })
+})
+
+app.put('/api/update-card', async (req,res) => {
+  const { scryfallData, cardData } = req.body
+  CardList.update(
+    {
+      deckName: deckName,
+    },
+    { where: { id: id } }
+  );
+})
 
 // Requests related to managing Users
 
@@ -227,6 +278,7 @@ app.post("/api/auth", async (req, res) => {
 
   if (user && bcryptjs.compareSync(password, user.password)) {
     req.session.userId = user.id;
+    req.session.cardCount = 0
     // user.logged_in = true
     res.json({ success: true, logged_in: true });
   } else {

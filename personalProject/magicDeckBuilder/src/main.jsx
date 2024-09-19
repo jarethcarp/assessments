@@ -36,22 +36,22 @@ const router = createBrowserRouter(
         loader={async ({ params }) => {
           const { id } = params;
           const res = await axios.get(`/api/cardList/${id}`);
-          return { cards: res.data };
+          return { cards: res.data};
         }}
       />
       <Route
         path="/public-decks"
         element={<PublicDecks />}
         loader={async () => {
-          const res = await axios.get("api/all-decks");
-          return { decks: res.data };
+          const res = await axios.get("/api/all-decks");
+          return {decks: res.data};
         }}
       />
       <Route
         path="/decks"
         element={<Decks />}
         loader={async () => {
-          const res = await axios.get("api/decks");
+          const res = await axios.get("/api/decks");
           return { decks: res.data };
         }}
       />

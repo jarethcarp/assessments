@@ -10,18 +10,25 @@ const CardBuilder = () => {
   const { cards } = useLoaderData()
   console.log(cards)
   const cardListItems = cards.map((card) => {
-    console.log(card)
-    console.log(card.cardLists[0].deckId)
+    console.log("Card", card)
+      if (card.cardLists.length > 1){ // Might need to edit/delete this later
+        card.cardLists.map((subcard) => {
+            console.log("SubCard: ", subcard)
+            return <CardRows cardData={card} isNotPublic={true} />
+        })
+      }
     return <CardRows cardData={card} isNotPublic={true} />;
   });
 
+  // console.log(cardListItems)
   
 
   const addCard = () => {
     axios.post("/api/add-card")
     .then((res) => {
       if (res.data.success) {
-         nav(`/edit/${card.cardLists[0].deckId}`)
+        console.log(cards[0].cardLists[0].deckId)
+         nav(`/edit/${cards[0].cardLists[0].deckId}`)
       } else {
          console.log("Failed to make Card")
       }

@@ -64,6 +64,9 @@ const cardStoreDB = await Promise.all(
     if (!prices) {
       prices = cardInfo.prices.usd_foil
     }
+    if (!prices) {
+      prices = "0.00"
+    }
 
     const newCard = CardStore.create({
       name,
