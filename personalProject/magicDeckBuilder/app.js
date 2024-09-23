@@ -123,9 +123,13 @@ app.get("/api/cardList/:id", async (req, res) => {
     include: {
       model: CardList,
       select: ["cardCount"],
-      where: { deckId: id }
+      where: { deckId: id },
+      order: [
+        ['id', 'DESC']
+      ]
     },
   });
+  console.log(allCards)
   console.log("#######################################   /api/cardList/:id was triggered   ########################################################")
   allCards.map((card) => { //This will clean up CardList everytime someone gets a card list
     if(card.cardLists.length > 1) {
@@ -160,10 +164,20 @@ app.get("/api/card-name/:name", async (req, res) => {
   }
 });
 
+app.get("/api/cardList-name/:name", async (req, res) => {
+  const { name } = req.params;
+  const card = await CardList.findOne({ where: { cardName: name } });
+  if (!card) {
+    console.error(`There is no card in my database with the name ${name}`)
+    return res.send({ success: false })
+  } else {
+    return res.send({ card, success: true});
+  }
+});
+
 app.post("/api/add-card", async (req, res) => {
   const deckId = req.session.deckId
   const cardCount = req.session.cardCount
-  // const cardCheck = await CardList.findOne({ where: { deckId: deckId, card_name:  }})
   if (req.session.userId) {
     const newCard = await CardList.create({
       deckId: deckId,
@@ -235,9 +249,20 @@ app.put('/api/update-cardStore', async (req,res) => {
     colorIdentity,
     prices,
   });
+
+  const fullCard = await CardStore.findOne({
+    include: {
+      model: CardList,
+      select: ["cardCount"],
+    },
+    where: {name: name}
+  });
+  console.log(fullCard)
+
   return res.send({
     success: true,
-    newCard: newCard
+    newCard: newCard,
+    fullCard,
   })
 })
 
@@ -252,6 +277,7 @@ app.put('/api/update-card', async (req,res) => {
     },
     { where: { id: id } }
   );
+  res.send({success: true})
 })
 
 // Requests related to managing Users

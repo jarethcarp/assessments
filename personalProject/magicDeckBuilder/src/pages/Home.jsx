@@ -1,16 +1,17 @@
 import React from 'react'
+import { useState } from 'react'
 import { FaRegPlusSquare, FaCopy } from "react-icons/fa"
 import { Modal } from 'flowbite'
 
 const Home = () => {
-
-  const target = document.getElementById('default-modal')
+  const [update, setUpdate] = useState(true)
+  const $target = document.getElementById('default-modal')
 
   const options = {
     placement: 'bottom-right',
     backdrop: 'dynamic',
     backdropClasses:
-        'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+        'bg-gray-900/50 fixed inset-0 z-40',
     closable: true,
     onHide: () => {
         console.log('modal is hidden');
@@ -20,6 +21,7 @@ const Home = () => {
     },
     onToggle: () => {
         console.log('modal has been toggled');
+        setUpdate(!update)
     },
   }
 
@@ -28,7 +30,7 @@ const Home = () => {
     override: true
   }
 
-  const modal = new Modal(target, options, instanceOptions)
+  const modal = new Modal($target, options, instanceOptions)
 
   return (
     <div>
@@ -45,9 +47,9 @@ const Home = () => {
         </button>
       </div>
 
-      <div id="default-modal" tabIndex={'-1'} aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div id="default-modal" tabIndex={'-1'} aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div  class="relative p-4 w-full max-w-2xl max-h-full">
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="relative bg-gold rounded-lg shadow dark:bg-gray-700">
             <div class="p-4 md:p-5 space-y-4">
               <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                 Test

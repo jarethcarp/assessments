@@ -2,24 +2,24 @@ import React from 'react'
 
 const cardHeader = () => {
   return(
-    <thead class="whitespace-nowrap bg-slate-400 w-1">
+    <thead className="whitespace-nowrap bg-slate-400 w-1">
           <tr>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
+            <th className="p-4 text-left text-xs font-semibold text-gray-800">
               Actions
             </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
+            <th className="p-4 text-left text-xs font-semibold text-gray-800">
               # of cards
             </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
+            <th className="p-4 text-left text-xs font-semibold text-gray-800">
               Name
             </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
+            <th className="p-4 text-left text-xs font-semibold text-gray-800">
               Card Type
             </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
+            <th className="p-4 text-left text-xs font-semibold text-gray-800">
               Mana Cost
             </th>
-            <th class="p-4 text-left text-xs font-semibold text-gray-800">
+            <th className="p-4 text-left text-xs font-semibold text-gray-800">
               Price
             </th>
           </tr>
