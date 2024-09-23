@@ -45,10 +45,10 @@ const Header = () => {
                 <NavLink to="/decks" className='navButton'>Your Decks</NavLink>
                 <NavLink to="/public-decks" className='navButton'>PublicDecks</NavLink>
               </div>
-              
-                <div>
-                  <LogoutBnt onLogout={handleLogout} />
-                </div>
+              <div className='flex'>
+                <NavLink to="/profile" className='navButton'>Profile</NavLink>
+                <LogoutBnt onLogout={handleLogout} />
+              </div>
 
           </nav>
       </>

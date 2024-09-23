@@ -16,6 +16,7 @@ import CardBuilder from "./pages/CardBuilder.jsx";
 import PublicDecks from "./pages/PublicDecks.jsx";
 import Auth from "./pages/Auth.jsx";
 import Register from "./pages/Register.jsx";
+import Profile from "./pages/Profile.jsx";
 import axios from "axios";
 import "./index.css";
 
@@ -57,6 +58,7 @@ const router = createBrowserRouter(
       />
       <Route path="/auth" element={<Auth />} />
       <Route path="/auth/register" element={<Register />} />
+      <Route path="/profile" element={<Profile />} />
     </Route>
   )
 );

@@ -124,43 +124,41 @@ app.get("/api/cardList/:id", async (req, res) => {
       model: CardList,
       select: ["cardCount"],
       where: { deckId: id },
-      order: [
-        ['id', 'DESC']
-      ]
+      order: [["id", "DESC"]],
     },
   });
-  console.log(allCards)
-  console.log("#######################################   /api/cardList/:id was triggered   ########################################################")
-  allCards.map((card) => { //This will clean up CardList everytime someone gets a card list
-    if(card.cardLists.length > 1) {
-      for (let i=0; i<card.cardLists.length-1; i++){
-        CardList.destroy({ where: { id: card.cardLists[i].id } })
+  console.log(allCards);
+  console.log(
+    "#######################################   /api/cardList/:id was triggered   ########################################################"
+  );
+  allCards.map((card) => {
+    //This will clean up CardList everytime someone gets a card list
+    if (card.cardLists.length > 1) {
+      for (let i = 0; i < card.cardLists.length - 1; i++) {
+        CardList.destroy({ where: { id: card.cardLists[i].id } });
       }
     }
-  })
-  
+  });
+
   // Gets the list of names
   const newCard = deckList.map((id) => {
     return id.cardId;
   });
 
   // creates a new arry with all the cards in decklist with all of the information needed
-  let newCardList = allCards.filter((newName) =>
-    newCard.includes(newName.id)
-  );
+  let newCardList = allCards.filter((newName) => newCard.includes(newName.id));
 
   res.send(newCardList);
 });
-
 
 app.get("/api/card-name/:name", async (req, res) => {
   const { name } = req.params;
   const card = await CardStore.findOne({ where: { name: name } });
   if (!card) {
-    console.error(`There is no card in my database with the name ${name}`)
-    return res.send({ success: false })
+    console.error(`There is no card in my database with the name ${name}`);
+    return res.send({ success: false });
   } else {
-    return res.send({ card, success: true});
+    return res.send({ card, success: true });
   }
 });
 
@@ -168,24 +166,25 @@ app.get("/api/cardList-name/:name", async (req, res) => {
   const { name } = req.params;
   const card = await CardList.findOne({ where: { cardName: name } });
   if (!card) {
-    console.error(`There is no card in my database with the name ${name}`)
-    return res.send({ success: false })
+    console.error(`There is no card in my database with the name ${name}`);
+    return res.send({ success: false });
   } else {
-    return res.send({ card, success: true});
+    return res.send({ card, success: true });
   }
 });
 
 app.post("/api/add-card", async (req, res) => {
-  const deckId = req.session.deckId
-  const cardCount = req.session.cardCount
+  console.log("Start of /api/add-card");
+  const deckId = req.session.deckId;
+  const cardCount = req.session.cardCount;
   if (req.session.userId) {
     const newCard = await CardList.create({
       deckId: deckId,
-      cardId: 62,
+      cardId: 9999,
       cardName: `New Card`,
-      cardCount: 1
+      cardCount: 1,
     });
-    req.session.cardCount += 1
+    req.session.cardCount += 1;
     console.log("Finished /api/add-card");
     return res.send({
       card: newCard,
@@ -202,8 +201,8 @@ app.post("/api/add-card", async (req, res) => {
 app.post("/api/delete-card", async (req, res) => {
   const { id } = req.body;
   const deck = await CardList.findOne({ where: { id: id } });
-  console.log(deck)
-  console.log("userId: ", deck.deckId, "session Id: ", req.session.deckId)
+  console.log(deck);
+  console.log("deckId: ", deck.deckId, "session Id: ", req.session.deckId);
   if (deck.deckId === req.session.deckId) {
     console.log("Finished /api/delete-card");
     CardList.destroy({ where: { id: id } });
@@ -219,22 +218,22 @@ app.post("/api/delete-card", async (req, res) => {
   }
 });
 
-app.put('/api/update-cardStore', async (req,res) => {
-  const { scryfallData } = req.body
-  const name = scryfallData.name
-  const cmc = scryfallData.cmc
-  const imageUris = scryfallData.image_uris.normal
-  const manaCost = scryfallData.mana_cost
-  const typeLine = scryfallData.type_line
-  const colors = scryfallData.colors
-  const colorIdentity = scryfallData.color_identity
-  let prices = scryfallData.prices.usd
+app.put("/api/update-cardStore", async (req, res) => {
+  const { scryfallData } = req.body;
+  const name = scryfallData.name;
+  const cmc = scryfallData.cmc;
+  const imageUris = scryfallData.image_uris.normal;
+  const manaCost = scryfallData.mana_cost;
+  const typeLine = scryfallData.type_line;
+  const colors = scryfallData.colors;
+  const colorIdentity = scryfallData.color_identity;
+  let prices = scryfallData.prices.usd;
 
   if (!prices) {
-    prices = scryfallData.prices.usd_foil
+    prices = scryfallData.prices.usd_foil;
   }
   if (!prices) {
-    prices = "0.00"
+    prices = "0.00";
   }
 
   // console.log(cardInfo.prices.usd_foil)
@@ -255,19 +254,19 @@ app.put('/api/update-cardStore', async (req,res) => {
       model: CardList,
       select: ["cardCount"],
     },
-    where: {name: name}
+    where: { name: name },
   });
-  console.log(fullCard)
+  console.log(fullCard);
 
   return res.send({
     success: true,
     newCard: newCard,
     fullCard,
-  })
-})
+  });
+});
 
-app.put('/api/update-card', async (req,res) => {
-  const { id, cardName, cardCount, cardId, deckId } = req.body.cardData
+app.put("/api/update-card", async (req, res) => {
+  const { id, cardName, cardCount, cardId, deckId } = req.body.cardData;
   CardList.update(
     {
       cardName,
@@ -277,8 +276,8 @@ app.put('/api/update-card', async (req,res) => {
     },
     { where: { id: id } }
   );
-  res.send({success: true})
-})
+  res.send({ success: true });
+});
 
 // Requests related to managing Users
 
@@ -305,13 +304,35 @@ app.get("/api/session-check", async (req, res) => {
   }
 });
 
+app.get("/api/deck-check", async (req, res) => {
+  if (req.session.userId && req.session.deckId) {
+    const decks = await Decks.findOne({ where: { id: +req.session.deckId } });
+    // console.log(decks)
+    console.log("Finished /api/session-check");
+    if (decks.userId === req.session.userId) {
+      return res.send({
+        success: true,
+      });
+    } else {
+      return res.send({
+        success: false,
+      });
+    }
+  } else {
+    console.log("Finished /api/deck-check");
+    return res.send({
+      success: false,
+    });
+  }
+});
+
 app.post("/api/auth", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email: email } });
 
   if (user && bcryptjs.compareSync(password, user.password)) {
     req.session.userId = user.id;
-    req.session.cardCount = 0
+    req.session.cardCount = 0;
     // user.logged_in = true
     res.json({ success: true, logged_in: true });
   } else {
@@ -334,7 +355,8 @@ app.post("/api/logout", (req, res) => {
 });
 
 app.post("/api/register", async (req, res) => {
-  const { email, password, confirmPassword } = req.body;
+  const { email, password } = req.body;
+
   if (await User.findOne({ where: { email: email } })) {
     console.log("Finished /api/register");
     return res.send({
@@ -361,4 +383,57 @@ app.post("/api/register", async (req, res) => {
     success: true,
     userId: req.session.userId,
   });
+});
+
+app.get("/api/user-info/:id", async (req, res) => {
+    const { id } = req.params;
+  console.log("Start of /api/user-info/:id");
+  console.log("First: ", +id)
+  if (req.session.userId) {
+    console.log("Second", id)
+      const findUser = await User.findOne({ where: { id: id } });
+
+      console.log("Finished /api/user-info/:id");
+      return res.send({
+        success: true,
+        email: findUser.email,
+        id: findUser.id,
+      });
+      
+  }
+
+  console.log("End of /api/user-info/:id");
+
+  return res.send({success: false})
+  
+});
+
+app.put("/api/update-user", async (req, res) => {
+  const { id, email, password } = req.body;
+  console.log(password);
+  if (password) {
+    const hashedPassword = bcryptjs.hashSync(
+      password,
+      bcryptjs.genSaltSync(10)
+    );
+    User.update(
+      {
+        email,
+        password: hashedPassword,
+      },
+      { where: { id: id } }
+    );
+    return res.send({ success: true });
+  } else {
+    User.update(
+      {
+        email,
+      },
+      { where: { id: id } }
+    );
+    return res.send({ success: true });
+  }
+  
+  return res.send({ success: false})
+
 });

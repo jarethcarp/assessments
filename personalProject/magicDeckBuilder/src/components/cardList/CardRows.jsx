@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import EditBnt from "./CardEditBnt";
 import CardProps from "./CardProps";
 import CardInfo from "./CardInfo";
+import TooltipIMG from "../modal/tooltipIMG";
 import axios from "axios";
 
 const CardRows = ({ cardData, isNotPublic }) => {
@@ -13,6 +14,8 @@ const CardRows = ({ cardData, isNotPublic }) => {
   const [cardType, setCardType] = useState(cardData.typeLine);
   const [cardMana, setCardMana] = useState(cardData.manaCost);
   const [cardPrice, setCardPrice] = useState(cardData.prices);
+  const [cardImg, setCardImg] = useState(cardData.imageUris);
+
 
   const nav = useNavigate();
 
@@ -151,6 +154,7 @@ const CardRows = ({ cardData, isNotPublic }) => {
           <CardProps
             isEditing={isEditing}
             value={cardName}
+            cardIMG={cardImg}
             valueUpdate={setCardName}
           />
         </td>

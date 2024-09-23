@@ -8,6 +8,7 @@ import CardHeader from "../components/cardList/cardHeader";
 import { Modal } from "flowbite";
 
 const CardBuilder = () => {
+  const [isPublic, setIsPublic] = useState(false)
   const [target, setTarget] = useState(false);
   // let target = document.getElementById("copy-modal");
   // console.log("Log for taget")
@@ -46,21 +47,56 @@ const CardBuilder = () => {
   }
 
   console.log("Start of CardBuilder");
+
   const nav = useNavigate();
   let { cards } = useLoaderData();
+
+  axios.get("/api/deck-check")
+  .then((res) => {
+    if (res.data.success) {
+      setIsPublic(true)
+    } else {
+      setIsPublic(false)
+    }
+  })
+
   const [sortedCards, setSortedCards] = useState([])
-  console.log("SORTED CARDS:", sortedCards)
+  const cardsSorted = cards.sort((a, b) => {
+    if (a.id < b.id) {
+      return -1
+    }
+    if (a.id > b.id) {
+      return 1
+    }
+    return 0
+  })
+  console.log("SORTED CARDS:", sortedCards[0])
   // cards = cards.sort((a, b) => a.name[0]-b.name[0])
   // console.log(cards)
+
+
   const cardListItems = cards.map((card) => {
     // console.log("Here are the cards from /api/cardList/${id}");
-    console.log(card);
-    return <CardRows key={card.id} cardData={card} isNotPublic={true} />;
+    // console.log("Cards: ", card);
+    return <CardRows key={card.id} cardData={card} isNotPublic={isPublic} />;
   });
 
-  useEffect(() => {
-    const cardsSorted = cards.sort((a, b) => a.name - b.name)
+  useEffect(() => { // I have two use effects and should probably combined them
+    // const cardsSorted = cards.sort((a, b) =>{
+    //    console.log("a", a.name)
+    //    return a.name - b.name
+    //   })
+    const cardsSorted = cards.sort((a, b) => {
+      if (a.id < b.id) {
+        return -1
+      }
+      if (a.id > b.id) {
+        return 1
+      }
+      return 0
+    })
     setSortedCards(cardsSorted)
+    console.log("Sorted cards", cardsSorted)
   }, [])
 
   const copyListItems = cards.map((card) => {
@@ -78,6 +114,7 @@ const CardBuilder = () => {
         // setUpdate(res.data)
         nav(`/edit/${cards[0].cardLists[0].deckId}`);
         console.log("Here is the res from addCard: ", res.data);
+        // Set card Name to New Card and everything to null
       } else {
         console.log("Failed to make Card");
       }
@@ -87,11 +124,10 @@ const CardBuilder = () => {
   return (
     <div className="font-sans overflow-x-auto shadow-sm">
       <table className="min-w-full bg-gray2">
-        <CardHeader />
+        <CardHeader isNotPublic={isPublic}/>
 
         <tbody className="whitespace-nowrap">
           {cardListItems}
-          {/* {update} */}
         </tbody>
       </table>
       <div className="float bg-gold">
@@ -123,12 +159,11 @@ const CardBuilder = () => {
         id="copy-modal"
         tabIndex={"-1"}
         aria-hidden="true"
-        className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full shadow-md"
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full">
           <div className="relative bg-blue rounded-lg shadow dark:bg-gray-700">
             <div className="p-4 md:p-5 space-y-4 h-60">
-              {/* {copyListItems} */}
               <div
                 id="multiliner"
                 className="text-base w-full h-full bg-primary"
@@ -143,7 +178,6 @@ const CardBuilder = () => {
                 type="button"
                 className="hover:bg-primary active:bg-gold navButton"
                 onClick={() => {
-                  // target = document.getElementById("copy-modal");
                   modal.hide();
                 }}
               >
