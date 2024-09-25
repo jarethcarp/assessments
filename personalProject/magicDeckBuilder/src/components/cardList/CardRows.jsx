@@ -19,6 +19,8 @@ const CardRows = ({ cardData, isNotPublic }) => {
 
   const nav = useNavigate();
 
+  
+
   // The function responsible for switching row to be able to be editeda
   const changeEditmode = () => {
     // This turns on the editing function
@@ -135,6 +137,7 @@ const CardRows = ({ cardData, isNotPublic }) => {
     }
   };
 
+
   return (
     <>
       <tr className="hover:bg-slate-300">
@@ -150,13 +153,14 @@ const CardRows = ({ cardData, isNotPublic }) => {
             valueUpdate={setCardCount}
           />
         </td>
-        <td className="p-4 text-[15px] text-gray-800">
+        <td className="p-4 text-[15px] text-gray-800 imagePopup">
           <CardProps
             isEditing={isEditing}
             value={cardName}
             cardIMG={cardImg}
             valueUpdate={setCardName}
           />
+          <img className="imagePopupText" src={cardImg} alt={cardName} />
         </td>
         <td className="p-4 text-[15px] text-gray-800">
           <CardInfo value={cardType} />

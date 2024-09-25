@@ -127,7 +127,7 @@ app.get("/api/cardList/:id", async (req, res) => {
       order: [["id", "DESC"]],
     },
   });
-  console.log(allCards);
+  // console.log(allCards);
   console.log(
     "#######################################   /api/cardList/:id was triggered   ########################################################"
   );
@@ -177,7 +177,8 @@ app.post("/api/add-card", async (req, res) => {
   console.log("Start of /api/add-card");
   const deckId = req.session.deckId;
   const cardCount = req.session.cardCount;
-  if (req.session.userId) {
+  const decks = await Decks.findOne({where: {id: deckId}})
+  if (req.session.userId === decks.userId) {
     const newCard = await CardList.create({
       deckId: deckId,
       cardId: 9999,
@@ -201,8 +202,6 @@ app.post("/api/add-card", async (req, res) => {
 app.post("/api/delete-card", async (req, res) => {
   const { id } = req.body;
   const deck = await CardList.findOne({ where: { id: id } });
-  console.log(deck);
-  console.log("deckId: ", deck.deckId, "session Id: ", req.session.deckId);
   if (deck.deckId === req.session.deckId) {
     console.log("Finished /api/delete-card");
     CardList.destroy({ where: { id: id } });

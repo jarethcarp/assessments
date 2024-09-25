@@ -40,6 +40,50 @@ input {
   margin-right: 0.75rem;
 }
 
-/* body {
+.popup {
+  position: relative;
+  display: inline-block;
+}
+
+.popup .popupText {
+  visibility: hidden;
+  width: 120px;
   background-color: black;
-} */
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+.popup:active .popupText {
+  visibility: visible;
+}
+
+
+
+.imagePopup {
+  position: relative;
+  display: inline-block;
+}
+
+.imagePopup .imagePopupText {
+  visibility: hidden;
+  width: max-content;
+  height: max-content;
+  transform: scale(2);
+
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  left: 150%;
+}
+
+.imagePopup:hover .imagePopupText {
+  visibility: visible;
+}
+
