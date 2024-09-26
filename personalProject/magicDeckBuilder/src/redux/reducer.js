@@ -1,6 +1,5 @@
 const inittalState = {
-    isLoggedIn: false,
-    sortBy: 0
+    isLoggedIn: false
 }
 
 const reducer = (state = inittalState, action) => {
@@ -17,27 +16,6 @@ const reducer = (state = inittalState, action) => {
             return {
                 ...state,
                 isLoggedIn: true
-            }
-
-        case "DEFAULT_SORT":
-            console.log("Sort by id")
-            return {
-                ...state,
-                sortBy: 0
-            }
-
-        case "NAME_SORT":
-            console.log("Sort by name")
-            return {
-                ...state,
-                sortBy: 1
-            }
-
-        case "TYPE_SORT":
-            console.log("Sort by card Type")
-            return {
-                ...state,
-                sortBy: 2
             }
 
         default:

@@ -1,14 +1,18 @@
 import React from 'react'
 import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const EditBnt = ({ deckId, isEditing, clickEdit, isPublic }) => {
   const nav = useNavigate()
+  const [update, setUpdate] = useState(true)
 
   const deleteDeck = () => {
     axios.post("/api/delete-deck", {deckId:deckId})
     .then((res) => {
       if (res.data.success) {
+        console.log("deleted bnt")
+         setUpdate(!update)
          nav('/decks')
       } else {
          console.log("Failed to delete Deck")

@@ -1,13 +1,10 @@
 import React from "react";
-import { useState } from "react";
 
-const cardHeader = ({ isNotPublic, filter }) => {
-  const [testVar, setTest] = useState("Not working")
+const cardHeader = ({ isNotPublic }) => {
   return isNotPublic ? (
     <thead className="whitespace-nowrap bg-slate-400 w-1">
       <tr>
         <th
-          // onClick={filter(0)}
           className="p-4 text-left text-xs font-semibold text-gray-800"
         >
           Actions
@@ -16,13 +13,9 @@ const cardHeader = ({ isNotPublic, filter }) => {
           # of cards
         </th>
         <th className="p-4 text-left text-xs font-semibold text-gray-800">
-          {/* <div onClick={console.log("Test")}> */}
-            <button onClick={console.log("Test")}>{testVar}</button>
-          {/* </div> */}
-
+          Name
         </th>
         <th
-          // onClick={filter(2)}
           className="p-4 text-left text-xs font-semibold text-gray-800"
         >
           Card Type
