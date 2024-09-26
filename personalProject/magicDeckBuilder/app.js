@@ -176,7 +176,6 @@ app.get("/api/cardList-name/:name", async (req, res) => {
 app.post("/api/add-card", async (req, res) => {
   console.log("Start of /api/add-card");
   const deckId = req.session.deckId;
-  const cardCount = req.session.cardCount;
   const decks = await Decks.findOne({where: {id: deckId}})
   if (req.session.userId === decks.userId) {
     const newCard = await CardList.create({
