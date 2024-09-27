@@ -200,20 +200,27 @@ app.post("/api/add-card", async (req, res) => {
 
 app.post("/api/delete-card", async (req, res) => {
   const { id } = req.body;
-  const deck = await CardList.findOne({ where: { id: id } });
-  if (deck.deckId === req.session.deckId) {
-    console.log("Finished /api/delete-card");
-    CardList.destroy({ where: { id: id } });
-    return res.send({
-      success: true,
-    });
-  } else {
-    console.log("Finished /api/delete-card");
-    return res.send({
-      message: "Failed to delete",
-      success: false,
-    });
+  if (id !== null && id !== undefined) {
+    const deck = await CardList.findOne({ where: { id: id } });
+    if (deck.deckId === req.session.deckId) {
+      console.log("Finished /api/delete-card");
+      CardList.destroy({ where: { id: id } });
+      return res.send({
+        success: true,
+      });
+    } else {
+      console.log("Finished /api/delete-card");
+      return res.send({
+        message: "Failed to delete",
+        success: false,
+      });
+    }
   }
+  return res.send({
+    message: "Failed to delete",
+    success: false,
+  });
+  
 });
 
 app.put("/api/update-cardStore", async (req, res) => { // Figure out how to add two faced cards

@@ -7,7 +7,7 @@ import CardInfo from "./CardInfo";
 import TooltipIMG from "../modal/tooltipIMG";
 import axios from "axios";
 
-const CardRows = ({ cardData, isNotPublic, update }) => {
+const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
   const [isEditing, setisEditing] = useState(true);
   const [cardCount, setCardCount] = useState(cardData.cardLists[0].cardCount);
   const [cardName, setCardName] = useState(cardData.cardLists[0].cardName);
@@ -22,38 +22,18 @@ const CardRows = ({ cardData, isNotPublic, update }) => {
   const nav = useNavigate();
 
   useEffect(() => {
-    console.log("+++++++++++++ useEffect Triggered +++++++++++++")
-    
-    console.log("Name: ", cardName)
-    console.log("Id: ", cardData.cardLists[0].cardName)
-    console.log("Id: ", cardData)
-    // setCardName("Test")
-    // if (cardData.cardLists[0].cardName === "New Card") {
-    //   setCardName("Test")
-    // } else {
-    //   setCardName(cardData.cardLists[0].cardName);
+    // if(!isupdated) {
+      // setIsUpdated(!isupdated)
     // }
-    
-    if(!isupdated) {
-      // setCardName(cardData.cardLists[0].cardName);
-      // console.log("Update", update)
-      // console.log("isUpdate", isupdated)
-      // console.log("Name: ", cardName)
-      // console.log("Id: ", cardData.cardLists[0])
-      setIsUpdated(!isupdated)
-    }
+
   }, []);
 
-    // console.log("update: ", update)
     if(update) {
       setCardName("Updated");
       update = false
     }
-    // console.log("update: ", update)
 
   if (newCard) {
-    console.log("@@@@@@@@@@@@@@@@@@ New Card trigger @@@@@@@@@@@@@@@@@@")
-    console.log(cardData.cardLists[0].cardName)
     setNewCard(false)
   }
 
@@ -120,18 +100,12 @@ const CardRows = ({ cardData, isNotPublic, update }) => {
                           },
                         });
                       });
-                      console.log("********************* Test made it here *********************")
-                      console.log("Name: ", cardName)
-                      console.log("Id: ", cardData.cardLists[0])
-                  } else {
-                    console.log("********************* Test made it else *********************")
                   }
                 });
                 nav(`/edit/${cardData.cardLists[0].deckId}`);
             });
         } else {
           // If I have the card in my database
-          console.log("********************* Test made it *********************")
           setCardCount(+cardCount);
           setCardName(res.data.card.name);
           setCardType(res.data.card.typeLine);
@@ -147,8 +121,6 @@ const CardRows = ({ cardData, isNotPublic, update }) => {
               id: cardData.cardLists[0].id,
             },
           });
-          console.log(cardName)
-          console.log(cardData)
         }
       });
     }
@@ -165,8 +137,6 @@ const CardRows = ({ cardData, isNotPublic, update }) => {
     // setCardMana(cardMana);
     // setCardPrice(0);
     setIsUpdated(false)
-    console.log(cardData.cardLists[0].cardName, "New Card")
-    console.log(cardData.cardLists[0].cardName === "New Card")
     if (cardData.cardLists[0].cardName === "New Card") {
       setCardName(cardData.cardLists[0].cardName)
       setCardImg("cardImg")
@@ -184,7 +154,8 @@ const CardRows = ({ cardData, isNotPublic, update }) => {
           cardId={cardData.cardLists[0]}
           clickEdit={changeEditmode}
           isPublic={isNotPublic}
-          update={update}
+          update={isupdated}
+          onDelete={onDelete}
         />
         <td className="p-4 text-[15px]">
           <CardProps
