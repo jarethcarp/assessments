@@ -20,7 +20,7 @@ const CardBuilder = () => {
   const nav = useNavigate();
   let { cards } = useLoaderData();
   const [sortedCards, setSortedCards] = useState(cards);
-  const [update, setUpdate] = useState(false)
+  const [update, setUpdate] = useState(false);
 
   // --------------------------------------------------------------------------------I need to clean up the page --------------------------------------------------------------------------------
   // --------------------------------------------------------------------------------I need to clean up the page --------------------------------------------------------------------------------
@@ -38,27 +38,24 @@ const CardBuilder = () => {
         setIsPublic(false);
       }
     });
-    if (cards[0]){
-      axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
-          .then((res) => {
-            const cardsSortedID = res.data.sort((a, b) => {
-              if (a.id < b.id) {
-                return -1;
-              }
-              if (a.id > b.id) {
-                return 1;
-              }
-              return 0;
-            });
-            setSortedCards(cardsSortedID);
-            console.log("cards sorted by id:", sortedCards);
-            // setSortedCards(res.data)
-            console.log("Updated database", res.data)
-          })
+    if (cards[0]) {
+      axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`).then((res) => {
+        const cardsSortedID = res.data.sort((a, b) => {
+          if (a.id < b.id) {
+            return -1;
+          }
+          if (a.id > b.id) {
+            return 1;
+          }
+          return 0;
+        });
+        setSortedCards(cardsSortedID);
+        console.log("cards sorted by id:", sortedCards);
+        // setSortedCards(res.data)
+        console.log("Updated database", res.data);
+      });
     }
-    
   }, []);
-
 
   const options = {
     placement: "bottom-right",
@@ -89,21 +86,28 @@ const CardBuilder = () => {
   console.log("Start of CardBuilder");
 
   const deleteCard = (cardId) => {
-    axios.post("/api/delete-card", {id:cardId})
-    .then((res) => {
+    axios.post("/api/delete-card", { id: cardId }).then((res) => {
       if (res.data.success) {
-        console.log("Deleted the card")
-         nav(`/edit/${cards[0].cardLists[0].deckId}`)
-         setUpdate(true)
+        console.log("Deleted the card");
+        nav(`/edit/${cards[0].cardLists[0].deckId}`);
+        setUpdate(true);
       } else {
-         console.log("Failed to delete Deck")
+        console.log("Failed to delete Deck");
         //  nav(`/edit/${cards[0].cardLists[0].deckId}`)
       }
-   });
-  }
+    });
+  };
 
   const cardListItems = sortedCards.map((card) => {
-    return <CardRows key={card.id} cardData={card} isNotPublic={isPublic} update={update} onDelete={deleteCard} />;
+    return (
+      <CardRows
+        key={card.id}
+        cardData={card}
+        isNotPublic={isPublic}
+        update={update}
+        onDelete={deleteCard}
+      />
+    );
   });
 
   const copyListItems = sortedCards.map((card) => {
@@ -118,31 +122,31 @@ const CardBuilder = () => {
     console.log("add Card trigger");
     axios.post("/api/add-card").then((res) => {
       if (res.data) {
-        console.log("Trying to refresh - Start of if")
+        console.log("Trying to refresh - Start of if");
         // setUpdate(!update)
-        console.log("Here is sortedCards: ", sortedCards)
+        console.log("Here is sortedCards: ", sortedCards);
         console.log("Here is the res from addCard: ", res.data);
-        axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
-        .then((res) => {
-          setSortedCards(res.data)
-          console.log("Updated database", res.data)
-          nav(`/edit/${cards[0].cardLists[0].deckId}`);
-        })
-        console.log("Trying to refresh - End of if")    
+        axios
+          .get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
+          .then((res) => {
+            setSortedCards(res.data);
+            console.log("Updated database", res.data);
+            nav(`/edit/${cards[0].cardLists[0].deckId}`);
+          });
+        console.log("Trying to refresh - End of if");
         // Set card Name to New Card and everything to null
       } else {
         console.log("Failed to make Card");
-    console.log("Trying to refresh - else")
+        console.log("Trying to refresh - else");
         // setUpdate(!update)
         // nav(`/edit/${cards[0].cardLists[0].deckId}`);
       }
     });
-        console.log("Here is sortedCards: ", sortedCards)
-    console.log("Trying to refresh - End")
-    setUpdate(true)
+    console.log("Here is sortedCards: ", sortedCards);
+    console.log("Trying to refresh - End");
+    setUpdate(true);
     // nav(`/edit/${cards[0].cardLists[0].deckId}`);
   };
-
 
   const sortCards = (sort) => {
     console.log("------------sortCards has been triggered------------");
@@ -219,10 +223,16 @@ const CardBuilder = () => {
     } else if (sort === 5) {
       console.log("Price Sort: ", sortedCards);
       const cardsSortedType = sortedCards.sort((a, b) => {
-        if (+a.prices * a.cardLists[0].cardCount < +b.prices * b.cardLists[0].cardCount) {
+        if (
+          +a.prices * a.cardLists[0].cardCount <
+          +b.prices * b.cardLists[0].cardCount
+        ) {
           return -1;
         }
-        if (+a.prices * a.cardLists[0].cardCount > +b.prices * b.cardLists[0].cardCount) {
+        if (
+          +a.prices * a.cardLists[0].cardCount >
+          +b.prices * b.cardLists[0].cardCount
+        ) {
           return 1;
         }
         return 0;
@@ -249,8 +259,8 @@ const CardBuilder = () => {
   console.log("End of Cardbuilder");
 
   return isPublic ? (
-<>
-        <div className="font-sans overflow-x-auto shadow-sm">
+    <>
+      <div className="hidden lg:block font-sans overflow-x-auto shadow-sm">
         <div>
           <div>Sort: </div>
           <button
@@ -259,7 +269,7 @@ const CardBuilder = () => {
               sortCards(0);
             }}
           >
-            ID
+            Default
           </button>
           <button
             className="hover:text-blue active:bg-black navButton"
@@ -303,7 +313,11 @@ const CardBuilder = () => {
           </button>
         </div>
         <table className="min-w-full bg-gray2">
-          <CardHeader filter={sortCards} isNotPublic={isPublic} update={update} />
+          <CardHeader
+            filter={sortCards}
+            isNotPublic={isPublic}
+            update={update}
+          />
           <tbody className="whitespace-nowrap">{cardListItems}</tbody>
         </table>
         <div className="float bg-gold">
@@ -368,18 +382,8 @@ const CardBuilder = () => {
         </div>
       </div>
 
-    
-
-
-
-
-
-
-
-
-
       {/* Mobile View */}
-      <div className="hidden font-sans overflow-x-auto shadow-sm">
+      <div className="block lg:hidden font-sans overflow-x-auto shadow-sm">
         <div>
           <div>Sort: </div>
           <button
@@ -388,7 +392,7 @@ const CardBuilder = () => {
               sortCards(0);
             }}
           >
-            ID
+            Default
           </button>
           <button
             className="hover:text-blue active:bg-black navButton"
@@ -432,7 +436,11 @@ const CardBuilder = () => {
           </button>
         </div>
         <table className="min-w-full bg-gray2">
-          <CardHeader filter={sortCards} isNotPublic={isPublic} update={update} />
+          <CardHeader
+            filter={sortCards}
+            isNotPublic={isPublic}
+            update={update}
+          />
           <tbody className="whitespace-nowrap">{cardListItems}</tbody>
         </table>
         <div className="float bg-gold">
@@ -499,7 +507,7 @@ const CardBuilder = () => {
     </>
   ) : (
     <>
-      <div className="font-sans overflow-x-auto shadow-sm">
+      <div className="block lg:hidden font-sans overflow-x-auto shadow-sm">
         <div>
           <div>Sort: </div>
           <button
@@ -508,7 +516,7 @@ const CardBuilder = () => {
               sortCards(0);
             }}
           >
-            ID
+            Default
           </button>
           <button
             className="hover:text-blue active:bg-black navButton"
@@ -552,7 +560,129 @@ const CardBuilder = () => {
           </button>
         </div>
         <table className="min-w-full bg-gray2">
-          <CardHeader filter={sortCards} isNotPublic={isPublic} update={update} />
+          <CardHeader
+            filter={sortCards}
+            isNotPublic={isPublic}
+            update={update}
+          />
+          <tbody className="whitespace-nowrap">{cardListItems}</tbody>
+        </table>
+        <div className="float bg-gold">
+          <FaCopy
+            data-modal-target="copy-modal"
+            data-modal-toggle="copy-modal"
+            className="size-5 text-primary-dark hover:text-blue active:bg-gold"
+            type="button"
+            onClick={() => {
+              modal.toggle();
+            }}
+          />
+
+          <div className="popup">
+            <FaShareAlt
+              onClick={() => {
+                navigator.clipboard.writeText(url);
+              }}
+              className="text-primary-dark hover:text-blue active:bg-gold"
+            />
+            <div className="popupText">copied</div>
+          </div>
+        </div>
+
+        <div
+          id="copy-modal"
+          tabIndex={"-1"}
+          aria-hidden="true"
+          className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full h-full shadow-md"
+        >
+          <div className="relative p-4 w-full max-w-2xl max-h-full h-auto">
+            <div className="relative bg-blue rounded-lg shadow dark:bg-gray-700 h-auto">
+              <div className="p-4 md:p-5 space-y-4 h-auto">
+                <div
+                  id="multiliner"
+                  className="text-base w-full h-full bg-primary"
+                  contentEditable="true"
+                >
+                  {copyListItems}
+                </div>
+              </div>
+              <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button
+                  data-modal-hide="copy-modal"
+                  type="button"
+                  className="hover:bg-primary active:bg-gold navButton"
+                  onClick={() => {
+                    modal.hide();
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile View */}
+
+      <div className="hidden lg:block font-sans overflow-x-auto shadow-sm">
+        <div>
+          <div>Sort: </div>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(0);
+            }}
+          >
+            Default
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(1);
+            }}
+          >
+            Card Count
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(2);
+            }}
+          >
+            Name
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(3);
+            }}
+          >
+            Type
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(4);
+            }}
+          >
+            Mana Cost
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(5);
+            }}
+          >
+            Price
+          </button>
+        </div>
+        <table className="min-w-full bg-gray2">
+          <CardHeader
+            filter={sortCards}
+            isNotPublic={isPublic}
+            update={update}
+          />
           <tbody className="whitespace-nowrap">{cardListItems}</tbody>
         </table>
         <div className="float bg-gold">
@@ -611,9 +741,7 @@ const CardBuilder = () => {
         </div>
       </div>
     </>
-  )
-    
-    
+  );
 };
 
 export default CardBuilder;

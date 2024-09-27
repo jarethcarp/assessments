@@ -30,35 +30,61 @@ const DeckRows = ({ deckData, isNotPublic }) => {
   };
 
   return (
-    <tr class="hover:bg-slate-300">
-      <EditBnt
-        deckId={deckData.id}
-        clickEdit={changeEditmode}
-        isPublic={isNotPublic}
-      />
-      <td class="p-4 text-[15px] text-gray-800">
-        <DeckEditName
-          isEditing={isEditing}
-          value={deckName}
+    <>
+      <tr class="hidden lg:table-row hover:bg-slate-300">
+        <EditBnt
           deckId={deckData.id}
-          valueUpdate={setDeckName}
+          clickEdit={changeEditmode}
+          isPublic={isNotPublic}
         />
-      </td>
-      <td class="p-4 text-[15px] text-gray-800">
-        <DeckEditColors
-          isEditing={isEditing}
-          value={deckcolor}
-          valueUpdate={setDeckColor}
+        <td class="p-4 text-[15px] text-gray-800">
+          <DeckEditName
+            isEditing={isEditing}
+            value={deckName}
+            deckId={deckData.id}
+            valueUpdate={setDeckName}
+          />
+        </td>
+        <td class="p-4 text-[15px] text-gray-800">
+          <DeckEditColors
+            isEditing={isEditing}
+            value={deckcolor}
+            valueUpdate={setDeckColor}
+          />
+        </td>
+        <td class="p-4 text-[15px] text-gray-800">
+          <DeckEditFormat
+            isEditing={isEditing}
+            value={deckFormat}
+            valueUpdate={setDeckFormat}
+          />
+        </td>
+      </tr>
+
+      <tr class="table-row lg:hidden hover:bg-slate-300">
+        <EditBnt
+          deckId={deckData.id}
+          clickEdit={changeEditmode}
+          isPublic={isNotPublic}
         />
-      </td>
-      <td class="p-4 text-[15px] text-gray-800">
-        <DeckEditFormat
-          isEditing={isEditing}
-          value={deckFormat}
-          valueUpdate={setDeckFormat}
-        />
-      </td>
-    </tr>
+        <td class="p-4 text-[15px] text-gray-800">
+          <DeckEditName
+            isEditing={isEditing}
+            value={deckName}
+            deckId={deckData.id}
+            valueUpdate={setDeckName}
+          />
+        </td>
+        <td class="p-4 text-[15px] text-gray-800">
+          <DeckEditFormat
+            isEditing={isEditing}
+            value={deckFormat}
+            valueUpdate={setDeckFormat}
+          />
+        </td>
+      </tr>
+    </>
+    
   );
 };
 

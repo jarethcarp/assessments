@@ -149,7 +149,7 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
 
   return (
     <>
-      <tr className="hover:bg-slate-300">
+      <tr className="hidden lg:table-row hover:bg-slate-300">
         <EditBnt
           cardId={cardData.cardLists[0]}
           clickEdit={changeEditmode}
@@ -178,6 +178,35 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
         </td>
         <td className="p-4 text-[15px] text-gray-800">
           <CardInfo value={cardMana} />
+        </td>
+        <td className="p-4 text-[15px] text-gray-800">
+          <CardInfo value={(cardPrice * cardCount).toFixed(2)} />
+        </td>
+      </tr>
+
+      <tr className="table-row lg:hidden hover:bg-slate-300">
+        <EditBnt
+          cardId={cardData.cardLists[0]}
+          clickEdit={changeEditmode}
+          isPublic={isNotPublic}
+          update={isupdated}
+          onDelete={onDelete}
+        />
+        <td className="p-4 text-[15px]">
+          <CardProps
+            isEditing={isEditing}
+            value={cardCount}
+            valueUpdate={setCardCount}
+          />
+        </td>
+        <td className="p-4 text-[15px] text-gray-800 imagePopup">
+          <CardProps
+            isEditing={isEditing}
+            value={cardName}
+            cardIMG={cardImg}
+            valueUpdate={setCardName}
+          />
+          <img className="imagePopupText" src={cardImg} alt={cardName} />
         </td>
         <td className="p-4 text-[15px] text-gray-800">
           <CardInfo value={(cardPrice * cardCount).toFixed(2)} />
