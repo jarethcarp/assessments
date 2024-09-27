@@ -20,6 +20,7 @@ const CardBuilder = () => {
   const nav = useNavigate();
   let { cards } = useLoaderData();
   const [sortedCards, setSortedCards] = useState(cards);
+  const [update, setUpdate] = useState(false)
 
   // --------------------------------------------------------------------------------I need to clean up the page --------------------------------------------------------------------------------
   // --------------------------------------------------------------------------------I need to clean up the page --------------------------------------------------------------------------------
@@ -37,7 +38,13 @@ const CardBuilder = () => {
         setIsPublic(false);
       }
     });
+    axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
+          .then((res) => {
+            setSortedCards(res.data)
+            console.log("Updated database", res.data)
+          })
   }, []);
+
 
   const options = {
     placement: "bottom-right",
@@ -68,7 +75,7 @@ const CardBuilder = () => {
   console.log("Start of CardBuilder");
 
   const cardListItems = sortedCards.map((card) => {
-    return <CardRows key={card.id} cardData={card} isNotPublic={isPublic} />;
+    return <CardRows key={card.id} cardData={card} isNotPublic={isPublic} update={update} />;
   });
 
   const copyListItems = sortedCards.map((card) => {
@@ -83,15 +90,29 @@ const CardBuilder = () => {
     console.log("add Card trigger");
     axios.post("/api/add-card").then((res) => {
       if (res.data) {
-        setSortedCards(sortedCards)
-        nav(`/edit/${cards[0].cardLists[0].deckId}`);
+        console.log("Trying to refresh - Start of if")
+        setUpdate(!update)
         console.log("Here is sortedCards: ", sortedCards)
         console.log("Here is the res from addCard: ", res.data);
+        axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
+        .then((res) => {
+          setSortedCards(res.data)
+          console.log("Updated database", res.data)
+          nav(`/edit/${cards[0].cardLists[0].deckId}`);
+        })
+        console.log("Trying to refresh - End of if")    
         // Set card Name to New Card and everything to null
       } else {
         console.log("Failed to make Card");
+    console.log("Trying to refresh - else")
+        setUpdate(!update)
+        nav(`/edit/${cards[0].cardLists[0].deckId}`);
       }
     });
+        console.log("Here is sortedCards: ", sortedCards)
+    console.log("Trying to refresh - End")
+    setUpdate(true)
+    nav(`/edit/${cards[0].cardLists[0].deckId}`);
   };
 
   const sortCards = (sort) => {
@@ -253,7 +274,7 @@ const CardBuilder = () => {
           </button>
         </div>
         <table className="min-w-full bg-gray2">
-          <CardHeader filter={sortCards} isNotPublic={isPublic} />
+          <CardHeader filter={sortCards} isNotPublic={isPublic} update={update} />
           <tbody className="whitespace-nowrap">{cardListItems}</tbody>
         </table>
         <div className="float bg-gold">

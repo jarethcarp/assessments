@@ -3,20 +3,24 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-const EditBnt = ({ cardId, isEditing, clickEdit, isPublic }) => {
+const EditBnt = ({ cardId, isEditing, clickEdit, isPublic, update }) => {
   const nav = useNavigate()
-  const [update, setUpdate] = useState(true)
+  const [isupdate, setUpdate] = useState(update)
 
   const deleteCard = () => {
     axios.post("/api/delete-card", {id:cardId.id})
     .then((res) => {
       if (res.data.success) {
-         setUpdate(!update)
+         setUpdate(true)
          nav(`/edit/${cardId.deckId}`)
       } else {
          console.log("Failed to delete Deck")
       }
    });
+  }
+
+  if (isupdate) {
+    setUpdate(false)
   }
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import EditBnt from "./CardEditBnt";
 import CardProps from "./CardProps";
@@ -7,7 +7,7 @@ import CardInfo from "./CardInfo";
 import TooltipIMG from "../modal/tooltipIMG";
 import axios from "axios";
 
-const CardRows = ({ cardData, isNotPublic }) => {
+const CardRows = ({ cardData, isNotPublic, update }) => {
   const [isEditing, setisEditing] = useState(true);
   const [cardCount, setCardCount] = useState(cardData.cardLists[0].cardCount);
   const [cardName, setCardName] = useState(cardData.cardLists[0].cardName);
@@ -15,11 +15,47 @@ const CardRows = ({ cardData, isNotPublic }) => {
   const [cardMana, setCardMana] = useState(cardData.manaCost);
   const [cardPrice, setCardPrice] = useState(cardData.prices);
   const [cardImg, setCardImg] = useState(cardData.imageUris);
+  const [isupdated, setIsUpdated] = useState(!update)
+  const [newCard, setNewCard] = useState(true)
 
 
   const nav = useNavigate();
 
-  
+  useEffect(() => {
+    console.log("+++++++++++++ useEffect Triggered +++++++++++++")
+    
+    console.log("Name: ", cardName)
+    console.log("Id: ", cardData.cardLists[0].cardName)
+    console.log("Id: ", cardData)
+    // setCardName("Test")
+    // if (cardData.cardLists[0].cardName === "New Card") {
+    //   setCardName("Test")
+    // } else {
+    //   setCardName(cardData.cardLists[0].cardName);
+    // }
+    
+    if(!isupdated) {
+      // setCardName(cardData.cardLists[0].cardName);
+      // console.log("Update", update)
+      // console.log("isUpdate", isupdated)
+      // console.log("Name: ", cardName)
+      // console.log("Id: ", cardData.cardLists[0])
+      setIsUpdated(!isupdated)
+    }
+  }, []);
+
+    // console.log("update: ", update)
+    if(update) {
+      setCardName("Updated");
+      update = false
+    }
+    // console.log("update: ", update)
+
+  if (newCard) {
+    console.log("@@@@@@@@@@@@@@@@@@ New Card trigger @@@@@@@@@@@@@@@@@@")
+    console.log(cardData.cardLists[0].cardName)
+    setNewCard(false)
+  }
 
   // The function responsible for switching row to be able to be editeda
   const changeEditmode = () => {
@@ -29,24 +65,18 @@ const CardRows = ({ cardData, isNotPublic }) => {
     } else {
       // This turns off the editing and trigers updating the database
       setisEditing(!isEditing);
-      // console.log("Sending /api/card-name/${cardName}")
       axios.get(`/api/card-name/${cardName}`).then((res) => {
-        // console.log(`Is ${cardName} in my database?`, res.data.success)
         // This sends a true or false based off if the card is in my database or not
         if (!res.data.success) {
           // If it's not in my database
-          // console.log("This card is not in my data base");
-          // console.log("Sending https://api.scryfall.com/cards/named?fuzzy=${cardName}")
           axios // This sends a request to scryfall to see if they have the card
             .get(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
             .catch((error) => {
               // If scryfall fails to find it
-              // console.log("Card doesn't exists");
               setCardType("Couldn't find card");
               setCardMana(" ");
               setCardPrice(" ");
               setCardImg("No card")
-              // nav(`/edit/${cardData.cardLists[0].deckId}`);
             })
             .then((res) => {
               // If Scryfall did find it
@@ -90,12 +120,18 @@ const CardRows = ({ cardData, isNotPublic }) => {
                           },
                         });
                       });
+                      console.log("********************* Test made it here *********************")
+                      console.log("Name: ", cardName)
+                      console.log("Id: ", cardData.cardLists[0])
+                  } else {
+                    console.log("********************* Test made it else *********************")
                   }
                 });
                 nav(`/edit/${cardData.cardLists[0].deckId}`);
             });
         } else {
           // If I have the card in my database
+          console.log("********************* Test made it *********************")
           setCardCount(+cardCount);
           setCardName(res.data.card.name);
           setCardType(res.data.card.typeLine);
@@ -104,17 +140,41 @@ const CardRows = ({ cardData, isNotPublic }) => {
           setCardImg(res.data.card.imageUris)
           axios.put("/api/update-card", {
             cardData: {
-              cardName,
+              cardName: res.data.card.name,
               cardCount,
               cardId: res.data.card.id,
               deckId: cardData.cardLists[0].deckId,
               id: cardData.cardLists[0].id,
             },
           });
+          console.log(cardName)
+          console.log(cardData)
         }
       });
     }
   };
+
+  if (isupdated) {
+  // console.log("Update", update)
+  // console.log("isUpdate", isupdated)
+  // console.log("Name: ", cardName)
+  // console.log("Id: ", cardData.cardLists[0])
+    
+    // setCardType(cardType);
+    // setCardName(cardData.cardLists[0].cardName);
+    // setCardMana(cardMana);
+    // setCardPrice(0);
+    setIsUpdated(false)
+    console.log(cardData.cardLists[0].cardName, "New Card")
+    console.log(cardData.cardLists[0].cardName === "New Card")
+    if (cardData.cardLists[0].cardName === "New Card") {
+      setCardName(cardData.cardLists[0].cardName)
+      setCardImg("cardImg")
+    } else {
+      setCardName(cardData.cardLists[0].cardName);
+    }
+  }
+  
 
 
   return (

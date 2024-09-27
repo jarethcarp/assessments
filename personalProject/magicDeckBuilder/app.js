@@ -216,7 +216,7 @@ app.post("/api/delete-card", async (req, res) => {
   }
 });
 
-app.put("/api/update-cardStore", async (req, res) => {
+app.put("/api/update-cardStore", async (req, res) => { // Figure out how to add two faced cards
   const { scryfallData } = req.body;
   const name = scryfallData.name;
   const cmc = scryfallData.cmc;
@@ -233,8 +233,6 @@ app.put("/api/update-cardStore", async (req, res) => {
   if (!prices) {
     prices = "0.00";
   }
-
-  // console.log(cardInfo.prices.usd_foil)
 
   const newCard = await CardStore.create({
     name: name,
@@ -265,6 +263,7 @@ app.put("/api/update-cardStore", async (req, res) => {
 
 app.put("/api/update-card", async (req, res) => {
   const { id, cardName, cardCount, cardId, deckId } = req.body.cardData;
+  console.log(cardName, cardCount, cardId)
   CardList.update(
     {
       cardName,
