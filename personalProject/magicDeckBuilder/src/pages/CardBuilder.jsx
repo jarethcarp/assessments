@@ -38,11 +38,26 @@ const CardBuilder = () => {
         setIsPublic(false);
       }
     });
-    axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
+    if (cards[0]){
+      axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
           .then((res) => {
-            setSortedCards(res.data)
+            console.log("TEST: ", res.data)
+            const cardsSortedID = res.data.sort((a, b) => {
+              if (a.id < b.id) {
+                return -1;
+              }
+              if (a.id > b.id) {
+                return 1;
+              }
+              return 0;
+            });
+            setSortedCards(cardsSortedID);
+            console.log("cards sorted by id:", sortedCards);
+            // setSortedCards(res.data)
             console.log("Updated database", res.data)
           })
+    }
+    
   }, []);
 
 
@@ -91,7 +106,7 @@ const CardBuilder = () => {
     axios.post("/api/add-card").then((res) => {
       if (res.data) {
         console.log("Trying to refresh - Start of if")
-        setUpdate(!update)
+        // setUpdate(!update)
         console.log("Here is sortedCards: ", sortedCards)
         console.log("Here is the res from addCard: ", res.data);
         axios.get(`/api/cardList/${cards[0].cardLists[0].deckId}`)
@@ -105,14 +120,14 @@ const CardBuilder = () => {
       } else {
         console.log("Failed to make Card");
     console.log("Trying to refresh - else")
-        setUpdate(!update)
-        nav(`/edit/${cards[0].cardLists[0].deckId}`);
+        // setUpdate(!update)
+        // nav(`/edit/${cards[0].cardLists[0].deckId}`);
       }
     });
         console.log("Here is sortedCards: ", sortedCards)
     console.log("Trying to refresh - End")
     setUpdate(true)
-    nav(`/edit/${cards[0].cardLists[0].deckId}`);
+    // nav(`/edit/${cards[0].cardLists[0].deckId}`);
   };
 
   const sortCards = (sort) => {
@@ -222,6 +237,125 @@ const CardBuilder = () => {
   return (
     <>
         <div className="font-sans overflow-x-auto shadow-sm">
+        <div>
+          <div>Sort: </div>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(0);
+            }}
+          >
+            ID
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(1);
+            }}
+          >
+            Card Count
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(2);
+            }}
+          >
+            Name
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(3);
+            }}
+          >
+            Type
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(4);
+            }}
+          >
+            Mana Cost
+          </button>
+          <button
+            className="hover:text-blue active:bg-black navButton"
+            onClick={() => {
+              sortCards(5);
+            }}
+          >
+            Price
+          </button>
+        </div>
+        <table className="min-w-full bg-gray2">
+          <CardHeader filter={sortCards} isNotPublic={isPublic} update={update} />
+          <tbody className="whitespace-nowrap">{cardListItems}</tbody>
+        </table>
+        <div className="float bg-gold">
+          <FaRegPlusSquare
+            className="size-5 hover:text-blue active:bg-black "
+            onClick={() => {
+              addCard();
+            }}
+          />
+          <FaCopy
+            data-modal-target="copy-modal"
+            data-modal-toggle="copy-modal"
+            className="size-5 text-primary-dark hover:text-blue active:bg-gold"
+            type="button"
+            onClick={() => {
+              modal.toggle();
+            }}
+          />
+
+          <div className="popup">
+            <FaShareAlt
+              onClick={() => {
+                navigator.clipboard.writeText(url);
+              }}
+              className="text-primary-dark hover:text-blue active:bg-gold"
+            />
+            <div className="popupText">copied</div>
+          </div>
+        </div>
+
+        <div
+          id="copy-modal"
+          tabIndex={"-1"}
+          aria-hidden="true"
+          className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full h-full shadow-md"
+        >
+          <div className="relative p-4 w-full max-w-2xl max-h-full h-auto">
+            <div className="relative bg-blue rounded-lg shadow dark:bg-gray-700 h-auto">
+              <div className="p-4 md:p-5 space-y-4 h-auto">
+                <div
+                  id="multiliner"
+                  className="text-base w-full h-full bg-primary"
+                  contentEditable="true"
+                >
+                  {copyListItems}
+                </div>
+              </div>
+              <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button
+                  data-modal-hide="copy-modal"
+                  type="button"
+                  className="hover:bg-primary active:bg-gold navButton"
+                  onClick={() => {
+                    modal.hide();
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile View */}
+      <div className="hidden font-sans overflow-x-auto shadow-sm">
         <div>
           <div>Sort: </div>
           <button

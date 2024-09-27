@@ -184,6 +184,7 @@ const CardRows = ({ cardData, isNotPublic, update }) => {
           cardId={cardData.cardLists[0]}
           clickEdit={changeEditmode}
           isPublic={isNotPublic}
+          update={update}
         />
         <td className="p-4 text-[15px]">
           <CardProps
