@@ -562,7 +562,7 @@ const CardBuilder = () => {
           <FaCopy
             data-modal-target="copy-modal"
             data-modal-toggle="copy-modal"
-            className="size-5 text-primary-dark mx-3 hover:text-blue active:bg-gold mx-3"
+            className="size-5 text-primary-dark hover:text-blue active:bg-gold mx-3"
             type="button"
             onClick={() => {
               modal.toggle();
@@ -574,7 +574,7 @@ const CardBuilder = () => {
               onClick={() => {
                 navigator.clipboard.writeText(url);
               }}
-              className="text-primary-dark mx-3 hover:text-blue active:bg-gold mx-3"
+              className="text-primary-dark hover:text-blue active:bg-gold mx-3"
             />
             <div className="popupText">copied</div>
           </div>
