@@ -33,11 +33,11 @@ const Home = () => {
   const modal = new Modal($target, options, instanceOptions)
 
   return (
-    <div>
-        <div>
+    <div className='flex flex-col items-center'>
+        <div className='m-5 font-bold text-2xl'>
             Welcome to Jareth's Magic the gathering Deckbuilder
         </div>
-        <div>
+        <div className='m-5'>
             You can log in to see and make your own decks or go see what other people have made
         </div>
     </div>

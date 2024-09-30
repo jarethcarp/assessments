@@ -50,7 +50,7 @@ const UpdateForm = ({ onUpdate, userId }) => {
             className="loginFormInput"
           />
         </div>
-      <button type="submit" className="navButton mx-3">
+      <button type="submit" className="navButton mx-3 hover:text-blue">
         Submit
       </button>
       </form>

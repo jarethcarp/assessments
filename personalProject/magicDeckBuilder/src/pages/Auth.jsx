@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useLoaderData, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import LoginForm from "../components/auth/loginForm";
+import LoginForm from "../components/auth/LoginForm";
 
 
 const Auth = () => {
@@ -27,10 +27,12 @@ const Auth = () => {
     
   return (
     <>
-      <LoginForm onLogin={handleLogin} />
-      <br/>
-      <h2>Don't have an account?</h2> 
-      <NavLink to="./register" className='text-blue-dark'>Register Here</NavLink>
+      <div className="flex flex-col items-center my-3">
+        <LoginForm onLogin={handleLogin} />
+        <br/>
+        <h2 className="my-3">Don't have an account?</h2> 
+        <NavLink to="./register" className='text-blue-dark my-3'>Register Here</NavLink>
+      </div>
     </>
   );
 };

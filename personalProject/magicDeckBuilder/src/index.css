@@ -16,10 +16,11 @@ input {
 }
 
 .navButton {
-  background-color: #FBBF24;
+  font-size: larger;
+  /* background-color: #FBBF24; */
   /* border-color: #1AC4EF; */
-  border-radius: 15px;
-  border-width: 2px;
+  /* border-radius: 15px; */
+  /* border-width: 2px; */
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.75rem;
@@ -28,7 +29,9 @@ input {
 }
 
 .navButton:hover {
-  background-color: #CC8F00;
+  /* background-color: #CC8F00; */
+  color: #596475;
+  
 }
 
 .loginFormInput {

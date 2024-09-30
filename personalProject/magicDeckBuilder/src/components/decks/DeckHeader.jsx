@@ -3,32 +3,32 @@ import React from "react";
 const DeckHeader = ({ isNotPublic }) => {
   return isNotPublic ? (
     <>
-      <thead class="hidden lg:table-header-group bg-gray-100 whitespace-nowrap bg-slate-400">
+      <thead class="hidden lg:table-header-group whitespace-nowrap bg-primary text-gray font-bold">
         <tr>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Actions
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Name
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Colors
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Format
           </th>
         </tr>
       </thead>
 
-      <thead class="table-header-group lg:hidden bg-gray-100 whitespace-nowrap bg-slate-400">
+      <thead class="table-header-group lg:hidden whitespace-nowrap bg-primary text-gray font-bold">
         <tr>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Actions
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Name
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Format
           </th>
         </tr>
@@ -36,25 +36,25 @@ const DeckHeader = ({ isNotPublic }) => {
     </>
   ) : (
     <>
-      <thead class="hidden lg:table-header-group bg-gray-100 whitespace-nowrap bg-slate-400">
+      <thead class="hidden lg:table-header-group whitespace-nowrap bg-primary text-gray font-bold">
         <tr>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Name
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Colors
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Format
           </th>
         </tr>
       </thead>
-      <thead class="table-header-group lg:hidden bg-gray-100 whitespace-nowrap bg-slate-400">
+      <thead class="table-header-group lg:hidden whitespace-nowrap bg-primary text-gray font-bold">
         <tr>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Name
           </th>
-          <th class="p-4 text-left text-xs font-semibold text-gray-800">
+          <th class="p-4 text-left">
             Format
           </th>
         </tr>

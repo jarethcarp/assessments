@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className='bg-primary'>
         <div>
           <Header />
         </div>

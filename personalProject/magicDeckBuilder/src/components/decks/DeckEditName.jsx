@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const DeckEditName = ({ value, isEditing, valueUpdate, deckId }) => {
   return isEditing ? (
     <div>
-        <NavLink to={`/edit/${deckId}`}>{value}</NavLink>
+        <NavLink className="hover:text-slate-500" to={`/edit/${deckId}`}>{value}</NavLink>
       </div>
   ) : (
     <>

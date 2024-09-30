@@ -102,51 +102,105 @@ const Decks = () => {
   };
 
   return (
-    <div class="font-sans overflow-x-auto shadow-sm">
-      <div>
-        <div>Sort: </div>
-        <button
-          className="hover:text-blue active:bg-black navButton"
-          onClick={() => {
-            sortDecks(0);
-          }}
-        >
-          ID
-        </button>
-        <button
-          className="hover:text-blue active:bg-black navButton"
-          onClick={() => {
-            sortDecks(1);
-          }}
-        >
-          Name
-        </button>
-        <button
-          className="hover:text-blue active:bg-black navButton"
-          onClick={() => {
-            sortDecks(2);
-          }}
-        >
-          Colors
-        </button>
-        <button
-          className="hover:text-blue active:bg-black navButton"
-          onClick={() => {
-            sortDecks(3);
-          }}
-        >
-          Format
-        </button>
+    <>
+      <div className="hidden lg:flex flex-col items-center">
+          <div className="flex content-center items-center flex-col">
+            <div className="font-bold text-2xl">Sort</div>
+            <div className="flex flex-row">
+              <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(0);
+              }}
+            >
+              Default
+            </button>
+            <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(1);
+              }}
+            >
+              Name
+            </button>
+            <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(2);
+              }}
+            >
+              Colors
+            </button>
+            <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(3);
+              }}
+            >
+              Format
+            </button>
+          </div>
+        </div>
+        <table class="w-4/6 bg-primary">
+          <DeckHeader isNotPublic={true} />
+          <tbody class="whitespace-nowrap">{deckListItems}</tbody>
+        </table>
+        <FaRegPlusSquare
+          className="size-5 hover:text-blue active:bg-black m-5"
+          onClick={() => addDeck()}
+        />
       </div>
-      <FaRegPlusSquare
-        className="size-5 hover:text-blue active:bg-black"
-        onClick={() => addDeck()}
-      />
-      <table class="min-w-full bg-gray2">
-        <DeckHeader isNotPublic={true} />
-        <tbody class="whitespace-nowrap">{deckListItems}</tbody>
-      </table>
-    </div>
+
+      <div className="lg:hidden flex flex-col items-center">
+          <div className="flex content-center items-center flex-col">
+            <div className="font-bold text-2xl">Sort</div>
+            <div className="flex flex-row">
+              <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(0);
+              }}
+            >
+              Default
+            </button>
+            <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(1);
+              }}
+            >
+              Name
+            </button>
+            <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(2);
+              }}
+            >
+              Colors
+            </button>
+            <button
+              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              onClick={() => {
+                sortDecks(3);
+              }}
+            >
+              Format
+            </button>
+          </div>
+        </div>
+        <table class="w-4/6 bg-primary">
+          <DeckHeader isNotPublic={true} />
+          <tbody class="whitespace-nowrap">{deckListItems}</tbody>
+        </table>
+        <FaRegPlusSquare
+          className="size-5 hover:text-blue active:bg-black m-5"
+          onClick={() => addDeck()}
+        />
+      </div>
+    </>
+    
+    
   );
 };
 

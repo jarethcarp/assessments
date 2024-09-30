@@ -38,12 +38,12 @@ const Header = () => {
 
   return isLoggedIn ? (
     <>
-      <nav className="flex lg:hidden justify-between items-center h-24 px-10 shadow-md bg-gold text-primary-dark m-0">
+      <nav className="flex lg:hidden justify-between items-center h-16 px-10 bg-gold text-primary-dark m-0">
         <div className="flex w-1/4 justify-between items-center">
           <GiHamburgerMenu onClick={() => setShowMenu(!showMenu)} />
 
           {showMenu && (
-            <div className="absolute left-0 top-[10vh] bg-gold h-[90vh] w-1/3 flex flex-col items-start z-10">
+            <div className="absolute left-0 top-[6vh] bg-gold h-[90vh] w-1/3 flex flex-col items-start z-10">
               <NavLink
                 to="/"
                 className="navButton"
@@ -63,7 +63,7 @@ const Header = () => {
                 className="navButton"
                 onClick={() => setShowMenu(!showMenu)}
               >
-                PublicDecks
+                All Decks
               </NavLink>
             </div>
           )}
@@ -76,16 +76,16 @@ const Header = () => {
         </div>
       </nav>
 
-      <nav className="hidden lg:flex justify-between items-center h-24 px-10 shadow-md bg-gold text-primary-dark m-0">
+      <nav className="hidden lg:flex justify-between items-center h-16 px-10 bg-gold text-primary-dark sticky top-0">
         <div className="flex w-1/4 justify-between items-center">
           <NavLink to="/" className="navButton">
             Home
           </NavLink>
           <NavLink to="/decks" className="navButton">
-            Your Decks
+            Decks
           </NavLink>
           <NavLink to="/public-decks" className="navButton">
-            PublicDecks
+            All Decks
           </NavLink>
         </div>
         <div className="flex">
@@ -98,7 +98,7 @@ const Header = () => {
     </>
   ) : (
     <>
-      <nav className="flex lg:hidden justify-between items-center h-24 px-10 shadow-md bg-gold text-primary-dark m-0">
+      <nav className="flex lg:hidden justify-between items-center h-16 px-10 bg-gold text-primary-dark m-0">
         <div className="flex w-1/4 justify-normal items-center">
           <GiHamburgerMenu onClick={() => setShowMenu(!showMenu)} />
           {showMenu && (
@@ -115,7 +115,7 @@ const Header = () => {
                 className="navButton"
                 onClick={() => setShowMenu(!showMenu)}
               >
-                PublicDecks
+                All Decks
               </NavLink>
             </div>
           )}
@@ -128,7 +128,7 @@ const Header = () => {
         </div>
       </nav>
 
-      <nav className="hidden lg:flex justify-between items-center h-24 px-10 shadow-md bg-gold text-primary-dark m-0">
+      <nav className="hidden lg:flex justify-between items-center h-16 px-10 bg-gold text-primary-dark m-0">
         <div className="flex w-1/4 justify-normal items-center">
           <NavLink to="/" className="navButton">
             Home

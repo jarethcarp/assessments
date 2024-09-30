@@ -10,6 +10,7 @@ const RegisterForm = ({ onRegister }) => {
   return (
     <>
       <form
+      className="flex flex-col items-center justify-center"
       onSubmit={(e) => {
         console.log("Above onRegister")
         onRegister(e, {
@@ -21,7 +22,7 @@ const RegisterForm = ({ onRegister }) => {
           console.log('RegisterForm test')
         }}
       >
-        <div>
+        <div className="flex flex-col items-center justify-center my-3">
           <label htmlFor="email">Email: </label>
           <input
             name="newEmail"
@@ -32,7 +33,7 @@ const RegisterForm = ({ onRegister }) => {
             className="loginFormInput"
           />
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center my-3">
           <label htmlFor="newPassword">Password: </label>
           <input
             name="password"
@@ -43,7 +44,7 @@ const RegisterForm = ({ onRegister }) => {
             className="loginFormInput"
           />
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center my-3">
           <label htmlFor="ConfirmPassword">Confirm Password: </label>
           <input
             name="password"
@@ -51,10 +52,10 @@ const RegisterForm = ({ onRegister }) => {
             type="password"
             required
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="loginFormInput"
+            className="loginFormInput bg-primary"
           />
         </div>
-      <button type="submit" className="navButton mx-3">
+      <button type="submit" className="navButton mx-3 hover:text-blue">
         Submit
       </button>
       </form>

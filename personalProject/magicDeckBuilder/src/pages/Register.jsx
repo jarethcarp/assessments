@@ -37,14 +37,20 @@ const Register = () => {
   return (
    match ? (
       <>
-         <div>Register</div>
-         <RegisterForm onRegister={handleRegister} />
+         <div className="flex flex-col items-center">
+            <div className="font-bold text-2xl my-3">Register</div>
+            <RegisterForm onRegister={handleRegister} />
+         </div>
+         
       </>
    ) : (
       <>
-         <div>Register</div>
-         <RegisterForm onRegister={handleRegister} />
-         <div>The Passwords don't match</div>
+      <div className="flex flex-col items-center">
+         <div className="font-bold text-2xl my-3">Register</div>
+         <RegisterForm className="m-2" onRegister={handleRegister} />
+         <div className="m-2">The Passwords don't match</div>
+      </div>
+         
       </>
    )
   );
