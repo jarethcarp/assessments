@@ -108,7 +108,7 @@ const Decks = () => {
             <div className="font-bold text-2xl">Sort</div>
             <div className="flex flex-row">
               <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(0);
               }}
@@ -116,7 +116,7 @@ const Decks = () => {
               Default
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(1);
               }}
@@ -124,7 +124,7 @@ const Decks = () => {
               Name
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(2);
               }}
@@ -132,7 +132,7 @@ const Decks = () => {
               Colors
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(3);
               }}
@@ -156,7 +156,7 @@ const Decks = () => {
             <div className="font-bold text-2xl">Sort</div>
             <div className="flex flex-row">
               <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(0);
               }}
@@ -164,7 +164,7 @@ const Decks = () => {
               Default
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(1);
               }}
@@ -172,7 +172,7 @@ const Decks = () => {
               Name
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(2);
               }}
@@ -180,7 +180,7 @@ const Decks = () => {
               Colors
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortDecks(3);
               }}

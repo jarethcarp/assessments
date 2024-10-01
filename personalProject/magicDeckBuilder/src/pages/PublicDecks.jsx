@@ -98,7 +98,7 @@ const PublicDecks = () => {
               <div className="font-bold text-2xl">Sort</div>
               <div className="flex flex-row">
                 <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(0);
                 }}
@@ -106,7 +106,7 @@ const PublicDecks = () => {
                 ID
               </button>
               <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(1);
                 }}
@@ -114,7 +114,7 @@ const PublicDecks = () => {
                 Name
               </button>
               <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(2);
                 }}
@@ -122,7 +122,7 @@ const PublicDecks = () => {
                 Colors
               </button>
               <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(3);
                 }}
@@ -143,7 +143,7 @@ const PublicDecks = () => {
               <div className="font-bold text-2xl">Sort</div>
               <div className="flex flex-row">
                 <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(0);
                 }}
@@ -151,7 +151,7 @@ const PublicDecks = () => {
                 Default
               </button>
               <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(1);
                 }}
@@ -159,7 +159,7 @@ const PublicDecks = () => {
                 Name
               </button>
               <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(2);
                 }}
@@ -167,7 +167,7 @@ const PublicDecks = () => {
                 Colors
               </button>
               <button
-                className="hover:text-blue active:bg-black navButton bg-slate-300"
+                className="mainButton"
                 onClick={() => {
                   sortDecks(3);
                 }}

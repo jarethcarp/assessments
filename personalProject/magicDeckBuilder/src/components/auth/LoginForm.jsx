@@ -40,7 +40,7 @@ const loginForm = ({ onLogin }) => {
               className="loginFormInput"
             />
           </div>
-          <button type="submit" className="navButton mx-3 my-3 text-blue">
+          <button type="submit" className="navButton mx-3 my-3 text-primary-dark hover:bg-slate-400 hover:text-primary-dark bg-slate-300 shadow-md">
             Submit
           </button>
         </form>

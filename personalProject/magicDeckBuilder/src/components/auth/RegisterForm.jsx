@@ -55,7 +55,7 @@ const RegisterForm = ({ onRegister }) => {
             className="loginFormInput bg-primary"
           />
         </div>
-      <button type="submit" className="navButton mx-3 hover:text-blue">
+      <button type="submit" className="navButton mx-3 hover:bg-slate-400 hover:text-primary-dark bg-slate-300 shadow-md">
         Submit
       </button>
       </form>

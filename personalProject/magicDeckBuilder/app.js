@@ -415,7 +415,8 @@ app.get("/api/user-info/:id", async (req, res) => {
 app.put("/api/update-user", async (req, res) => {
   const { id, email, password } = req.body;
   console.log(password);
-  if (password) {
+  console.log(email);
+  if (password !== "") {
     const hashedPassword = bcryptjs.hashSync(
       password,
       bcryptjs.genSaltSync(10)

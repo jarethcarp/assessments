@@ -265,7 +265,7 @@ const CardBuilder = () => {
           <div className="font-bold text-2xl">Sort</div>
           <div className="flex flex-row">
               <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(0);
               }}
@@ -273,7 +273,7 @@ const CardBuilder = () => {
               Default
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(1);
               }}
@@ -281,7 +281,7 @@ const CardBuilder = () => {
               Card Count
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(2);
               }}
@@ -289,7 +289,7 @@ const CardBuilder = () => {
               Name
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(3);
               }}
@@ -297,7 +297,7 @@ const CardBuilder = () => {
               Type
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(4);
               }}
@@ -305,7 +305,7 @@ const CardBuilder = () => {
               Mana Cost
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(5);
               }}
@@ -391,7 +391,7 @@ const CardBuilder = () => {
           <div className="font-bold text-2xl">Sort</div>
           <div className="flex flex-row">
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(0);
               }}
@@ -399,7 +399,7 @@ const CardBuilder = () => {
               Default
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(1);
               }}
@@ -407,7 +407,7 @@ const CardBuilder = () => {
               Card Count
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(2);
               }}
@@ -415,7 +415,7 @@ const CardBuilder = () => {
               Name
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(5);
               }}
@@ -500,7 +500,7 @@ const CardBuilder = () => {
           <div className="font-bold text-2xl">Sort</div>
           <div className="flex flex-row">
               <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(0);
               }}
@@ -508,7 +508,7 @@ const CardBuilder = () => {
               Default
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(1);
               }}
@@ -516,7 +516,7 @@ const CardBuilder = () => {
               Card Count
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(2);
               }}
@@ -524,7 +524,7 @@ const CardBuilder = () => {
               Name
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(3);
               }}
@@ -532,7 +532,7 @@ const CardBuilder = () => {
               Type
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(4);
               }}
@@ -540,7 +540,7 @@ const CardBuilder = () => {
               Mana Cost
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(5);
               }}
@@ -574,7 +574,7 @@ const CardBuilder = () => {
               onClick={() => {
                 navigator.clipboard.writeText(url);
               }}
-              className="text-primary-dark hover:text-blue active:bg-gold mx-3"
+              className="text-primary-darkd hover:text-blue active:bg-gold mx-3"
             />
             <div className="popupText">copied</div>
           </div>
@@ -621,7 +621,7 @@ const CardBuilder = () => {
           <div className="font-bold text-2xl">Sort</div>
           <div className="flex flex-row">
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(0);
               }}
@@ -629,7 +629,7 @@ const CardBuilder = () => {
               Default
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(1);
               }}
@@ -637,7 +637,7 @@ const CardBuilder = () => {
               Card Count
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(2);
               }}
@@ -645,7 +645,7 @@ const CardBuilder = () => {
               Name
             </button>
             <button
-              className="hover:text-blue active:bg-black navButton bg-slate-300"
+              className="mainButton"
               onClick={() => {
                 sortCards(5);
               }}

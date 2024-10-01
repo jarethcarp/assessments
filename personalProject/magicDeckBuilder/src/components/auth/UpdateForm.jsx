@@ -9,6 +9,7 @@ const UpdateForm = ({ onUpdate, userId }) => {
   return (
     <>
       <form
+      className="flex flex-col items-center justify-center"
       onSubmit={(e) => {
         console.log("Above onRegister")
         onUpdate(e, {
@@ -20,7 +21,7 @@ const UpdateForm = ({ onUpdate, userId }) => {
           console.log('UpdateForm test')
         }}
       >
-        <div>
+        <div className="flex flex-col items-center justify-center my-3">
           <label htmlFor="email">Email: </label>
           <input
             name="newEmail"
@@ -30,7 +31,7 @@ const UpdateForm = ({ onUpdate, userId }) => {
             className="loginFormInput"
           />
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center my-3">
           <label htmlFor="newPassword">Password: </label>
           <input
             name="password"
@@ -40,7 +41,7 @@ const UpdateForm = ({ onUpdate, userId }) => {
             className="loginFormInput"
           />
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center my-3">
           <label htmlFor="ConfirmPassword">Confirm Password: </label>
           <input
             name="password"
@@ -50,7 +51,7 @@ const UpdateForm = ({ onUpdate, userId }) => {
             className="loginFormInput"
           />
         </div>
-      <button type="submit" className="navButton mx-3 hover:text-blue">
+      <button type="submit" className="navButton m-3 hover:bg-slate-400 hover:text-primary-dark flex flex-col items-center justify-center bg-slate-300 shadow-md">
         Submit
       </button>
       </form>
