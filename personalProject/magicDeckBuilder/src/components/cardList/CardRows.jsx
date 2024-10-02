@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import EditBnt from "./CardEditBnt";
 import CardProps from "./CardProps";
 import CardInfo from "./CardInfo";
+import CardMana from "./cardMana";
 import TooltipIMG from "../modal/tooltipIMG";
 import axios from "axios";
 
@@ -177,7 +178,7 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
           <CardInfo value={cardType} />
         </td>
         <td className="p-4 text-primary-dark">
-          <CardInfo value={cardMana} />
+          <CardMana value={cardMana} />
         </td>
         <td className="p-4 text-primary-dark">
           <CardInfo value={(cardPrice * cardCount).toFixed(2)} />

@@ -1,8 +1,6 @@
-import React from 'react'
+import React from "react";
 
-const DeckEditColors = ({ value, isEditing, valueUpdate }) => {
-
-  
+const CardMana = ({ value }) => {
   const cleanUp = (mana) => {
     const cleanMana = mana
       .replace("/", "")
@@ -19,13 +17,7 @@ const DeckEditColors = ({ value, isEditing, valueUpdate }) => {
     return <img className="size-6" src={manaImg} alt={mana} />;
   });
 
-  return isEditing ? (
-    <div className="flex">{manaList}</div>
-  ) : (
-    <>
-      <input type='text' value={value} onChange={(e) => valueUpdate(e.target.value)} />
-    </>
-  )
-  }
+  return <div className="flex">{manaList}</div>;
+};
 
-export default DeckEditColors
+export default CardMana;
