@@ -5,6 +5,7 @@ import EditBnt from "./CardEditBnt";
 import CardProps from "./CardProps";
 import CardInfo from "./CardInfo";
 import CardMana from "./cardMana";
+import CardName from "./CardName";
 import TooltipIMG from "../modal/tooltipIMG";
 import axios from "axios";
 
@@ -201,7 +202,7 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
           />
         </td>
         <td className="py-4 text-primary-dark imagePopup">
-          <CardProps
+          <CardName
             isEditing={isEditing}
             value={cardName}
             cardIMG={cardImg}

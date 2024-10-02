@@ -95,14 +95,14 @@ input {
 
 .imagePopup .imagePopupText {
   visibility: hidden;
-  width: max-content;
-  height: max-content;
-  transform: scale(2);
+  width: 73px;
+  height: 102px;
+  transform: scale(4);
 
   position: absolute;
   z-index: 1;
-  top: -10px;
-  left: 150%;
+  top: -50px;
+  left: 20rem;
 }
 
 .imagePopup:hover .imagePopupText {
