@@ -1,8 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const DeckEditColors = ({ value, isEditing, valueUpdate }) => {
-
-  
+  let id = 0;
   const cleanUp = (mana) => {
     const cleanMana = mana
       .replace("/", "")
@@ -16,16 +15,21 @@ const DeckEditColors = ({ value, isEditing, valueUpdate }) => {
 
   const manaList = manaArr.map((mana) => {
     const manaImg = `https://svgs.scryfall.io/card-symbols/${mana}.svg`;
-    return <img className="size-6" src={manaImg} alt={mana} />;
+    id++
+    return <img key={id} className="size-6" src={manaImg} alt={mana} />;
   });
 
   return isEditing ? (
     <div className="flex">{manaList}</div>
   ) : (
     <>
-      <input type='text' value={value} onChange={(e) => valueUpdate(e.target.value)} />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => valueUpdate(e.target.value)}
+      />
     </>
-  )
-  }
+  );
+};
 
-export default DeckEditColors
+export default DeckEditColors;

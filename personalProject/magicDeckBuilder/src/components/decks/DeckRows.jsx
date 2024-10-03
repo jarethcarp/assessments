@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import EditBnt from "../DeckEditBnt";
@@ -7,11 +7,18 @@ import DeckEditName from "./DeckEditName";
 import DeckEditColors from "./DeckEditColors";
 import DeckEditFormat from "./DeckEditFormat";
 
-const DeckRows = ({ deckData, isNotPublic }) => {
+const DeckRows = ({ deckData, isNotPublic, onDelete, update }) => {
   const [deckName, setDeckName] = useState(deckData.deckName);
   const [deckcolor, setDeckColor] = useState(deckData.colors);
   const [deckFormat, setDeckFormat] = useState(deckData.format);
   const [isEditing, setisEditing] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(!update)
+
+  useEffect(() => {
+    // console.log("DeckRows update: ", isUpdate)
+  }, [])
+
+  
 
   const changeEditmode = () => {
     if (isEditing) {
@@ -29,15 +36,23 @@ const DeckRows = ({ deckData, isNotPublic }) => {
     }
   };
 
+  if(isUpdate) {
+    // console.log("Update trigger")
+    setIsUpdate(false)
+    // setDeckName(deckData.deckName)
+  }
+
   return (
     <>
-      <tr class="hidden lg:table-row bg-primary border-b-2">
+      <tr className="hidden lg:table-row bg-primary border-b-2">
         <EditBnt
           deckId={deckData.id}
           clickEdit={changeEditmode}
           isPublic={isNotPublic}
+          onDelete={onDelete}
+          update={isUpdate}
         />
-        <td class="p-4 text-[15px] text-primary-dark">
+        <td className="p-4 text-[15px] text-primary-dark">
           <DeckEditName
             isEditing={isEditing}
             value={deckName}
@@ -45,14 +60,14 @@ const DeckRows = ({ deckData, isNotPublic }) => {
             valueUpdate={setDeckName}
           />
         </td>
-        <td class="p-4 text-[15px] text-primary-dark">
+        <td className="p-4 text-[15px] text-primary-dark">
           <DeckEditColors
             isEditing={isEditing}
             value={deckcolor}
             valueUpdate={setDeckColor}
           />
         </td>
-        <td class="p-4 text-[15px] text-primary-dark">
+        <td className="p-4 text-[15px] text-primary-dark">
           <DeckEditFormat
             isEditing={isEditing}
             value={deckFormat}
@@ -61,13 +76,15 @@ const DeckRows = ({ deckData, isNotPublic }) => {
         </td>
       </tr>
 
-      <tr class="table-row lg:hidden bg-primary border-b-2">
+      <tr className="table-row lg:hidden bg-primary border-b-2">
         <EditBnt
           deckId={deckData.id}
           clickEdit={changeEditmode}
           isPublic={isNotPublic}
+          onDelete={onDelete}
+          update={isUpdate}
         />
-        <td class="p-4 text-[15px] text-primary-dark">
+        <td className="p-4 text-[15px] text-primary-dark">
           <DeckEditName
             isEditing={isEditing}
             value={deckName}
@@ -75,7 +92,7 @@ const DeckRows = ({ deckData, isNotPublic }) => {
             valueUpdate={setDeckName}
           />
         </td>
-        <td class="p-4 text-[15px] text-primary-dark">
+        <td className="p-4 text-[15px] text-primary-dark">
           <DeckEditFormat
             isEditing={isEditing}
             value={deckFormat}

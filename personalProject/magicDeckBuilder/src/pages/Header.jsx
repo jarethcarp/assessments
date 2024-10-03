@@ -33,6 +33,7 @@ const Header = () => {
   };
 
   useEffect(() => {
+    sessionCheck()
     setShowMenu(false);
   }, []);
 

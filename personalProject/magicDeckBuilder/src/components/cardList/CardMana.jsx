@@ -1,6 +1,7 @@
 import React from "react";
 
 const CardMana = ({ value }) => {
+  let id = 0
   const cleanUp = (mana) => {
     const cleanMana = mana
       .replace("/", "")
@@ -14,7 +15,8 @@ const CardMana = ({ value }) => {
 
   const manaList = manaArr.map((mana) => {
     const manaImg = `https://svgs.scryfall.io/card-symbols/${mana}.svg`;
-    return <img className="size-6" src={manaImg} alt={mana} />;
+    id++
+    return <img key={id} className="size-6" src={manaImg} alt={mana} />;
   });
 
   return <div className="flex">{manaList}</div>;

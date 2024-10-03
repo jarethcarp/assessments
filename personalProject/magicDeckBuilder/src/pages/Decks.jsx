@@ -10,21 +10,43 @@ const Decks = () => {
   const nav = useNavigate();
   const { decks } = useLoaderData();
   const [sortedDecks, setSortedDecks] = useState(decks);
+  const [update, setUpdate] = useState(false);
   // const [tempid, setTempId] = useState(10)
-  const deckListItems = sortedDecks.map((deck) => {
-    return <DeckRows key={deck.id} deckData={deck} isNotPublic={true} />;
-  });
 
   const addDeck = () => {
     axios.post("/api/add-deck").then((res) => {
       if (res.data.success) {
         console.log("Added Deck")
+        setUpdate(true);
         nav("/decks");
+        window.location.reload();
       } else {
         console.log("Failed to make Deck");
       }
     });
   };
+
+  const deleteDeck = (deckId) => {
+    axios.post("/api/delete-deck", { deckId: deckId }).then((res) => {
+      if (res.data.success) {
+        // console.log("deleted bnt");
+        // console.log(update)
+        nav("/decks");
+        setUpdate(true);
+        // console.log(update)
+      } else {
+        // console.log("Failed to delete Deck");
+        // console.log(update)
+        nav("/decks");
+        setUpdate(true);
+        // console.log(update)
+      }
+    });
+  };
+
+  const deckListItems = sortedDecks.map((deck) => {
+    return <DeckRows key={deck.id} deckData={deck} isNotPublic={true} onDelete={deleteDeck} update={update} />;
+  });
 
   const sortDecks = (sort) => {
     console.log("------------sortCards has been triggered------------");
@@ -141,9 +163,9 @@ const Decks = () => {
             </button>
           </div>
         </div>
-        <table class="w-4/6 bg-primary">
+        <table className="w-4/6 bg-primary">
           <DeckHeader isNotPublic={true} />
-          <tbody class="whitespace-nowrap">{deckListItems}</tbody>
+          <tbody className="whitespace-nowrap">{deckListItems}</tbody>
         </table>
         <FaRegPlusSquare
           className="size-5 hover:text-blue active:bg-black m-5"
@@ -189,9 +211,9 @@ const Decks = () => {
             </button>
           </div>
         </div>
-        <table class="w-4/6 bg-primary">
+        <table className="w-4/6 bg-primary">
           <DeckHeader isNotPublic={true} />
-          <tbody class="whitespace-nowrap">{deckListItems}</tbody>
+          <tbody className="whitespace-nowrap">{deckListItems}</tbody>
         </table>
         <FaRegPlusSquare
           className="size-5 hover:text-blue active:bg-black m-5"

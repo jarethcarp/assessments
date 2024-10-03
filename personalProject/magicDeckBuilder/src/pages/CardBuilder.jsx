@@ -17,10 +17,10 @@ const CardBuilder = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [target, setTarget] = useState(false);
   const [url, setURL] = useState(window.location.href);
-  const nav = useNavigate();
   let { cards } = useLoaderData();
   const [sortedCards, setSortedCards] = useState(cards);
   const [update, setUpdate] = useState(false);
+  const nav = useNavigate();
 
   // --------------------------------------------------------------------------------I need to clean up the page --------------------------------------------------------------------------------
   // --------------------------------------------------------------------------------I need to clean up the page --------------------------------------------------------------------------------
@@ -54,6 +54,9 @@ const CardBuilder = () => {
         // setSortedCards(res.data)
         console.log("Updated database", res.data);
       });
+    } else {
+      console.log("cards[0]: ", cards[0])
+      console.log("cards: ", cards)
     }
   }, []);
 
@@ -121,7 +124,7 @@ const CardBuilder = () => {
   const addCard = () => {
     console.log("add Card trigger");
     axios.post("/api/add-card").then((res) => {
-      if (res.data) {
+      if (res.data && cards[0] !== undefined) {
         console.log("Trying to refresh - Start of if");
         // setUpdate(!update)
         console.log("Here is sortedCards: ", sortedCards);
@@ -138,8 +141,24 @@ const CardBuilder = () => {
       } else {
         console.log("Failed to make Card");
         console.log("Trying to refresh - else");
-        // setUpdate(!update)
-        // nav(`/edit/${cards[0].cardLists[0].deckId}`);
+        // axios.get(`/api/cardList/${location.pathname}`).then((res) => {
+        //   const cardsSortedID = res.data.sort((a, b) => {
+        //     if (a.id < b.id) {
+        //       return -1;
+        //     }
+        //     if (a.id > b.id) {
+        //       return 1;
+        //     }
+        //     return 0;
+        //   });
+        //   setSortedCards(cardsSortedID);
+        //   console.log("cards sorted by id:", sortedCards);
+        //   // setSortedCards(res.data)
+        //   console.log("Updated database", res.data);
+        // })
+        console.log(".", location.pathname)
+        window.location.reload();
+        nav(location.pathname);
       }
     });
     console.log("Here is sortedCards: ", sortedCards);
@@ -358,7 +377,7 @@ const CardBuilder = () => {
           className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full h-full"
         >
           <div className="relative p-4 w-full max-w-2xl max-h-full h-auto">
-            <div className="relative bg-primary dark:bg-gray-700 h-auto">
+            <div className="relative bg-blue dark:bg-gray-700 h-auto">
               <div className="p-4 md:p-5 space-y-4 h-auto">
                 <div
                   id="multiliner"

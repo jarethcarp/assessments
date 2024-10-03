@@ -4,9 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const EditBnt = ({ cardId, isEditing, clickEdit, isPublic, update, onDelete }) => {
-  const nav = useNavigate()
-  const [isupdate, setUpdate] = useState(update)
-
+  // const nav = useNavigate()
+  // const [isupdate, setUpdate] = useState(update)
   // if (isupdate) {
   //   setUpdate(false)
   //   nav(`/edit/${cardId.deckId}`)

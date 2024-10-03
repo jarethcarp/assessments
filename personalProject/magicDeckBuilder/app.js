@@ -68,20 +68,31 @@ app.post("/api/add-deck", async (req, res) => {
 
 app.post("/api/delete-deck", async (req, res) => {
   const { deckId } = req.body;
-  const deck = await Decks.findOne({ where: { id: deckId } });
-  if (deck.userId === req.session.userId) {
-    console.log("Finished /api/delete-deck");
-    Decks.destroy({ where: { id: deckId } });
-    return res.send({
-      success: true,
-    });
+  console.log(deckId)
+    const deck = await Decks.findOne({ where: { id: deckId } });
+  if (deck !== null) {
+    console.log(deck)
+    console.log(deck.userId)
+    if (deck.userId === req.session.userId) {
+      console.log("Finished /api/delete-deck");
+      Decks.destroy({ where: { id: deckId } });
+      return res.send({
+        success: true,
+      });
+    } else {
+      console.log("Finished /api/delete-deck");
+      return res.send({
+        message: "Failed to delete",
+        success: false,
+      });
+    }
   } else {
-    console.log("Finished /api/delete-deck");
     return res.send({
       message: "Failed to delete",
       success: false,
     });
   }
+  
 });
 
 app.put("/api/update-deck", async (req, res) => {

@@ -107,6 +107,7 @@ input {
 
 .imagePopup:hover .imagePopupText {
   visibility: visible;
+  border-radius: 3px;
 }
 
 

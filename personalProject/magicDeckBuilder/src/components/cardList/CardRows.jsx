@@ -24,9 +24,6 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
   const nav = useNavigate();
 
   useEffect(() => {
-    // if(!isupdated) {
-      // setIsUpdated(!isupdated)
-    // }
 
   }, []);
 
@@ -141,7 +138,7 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
     setIsUpdated(false)
     if (cardData.cardLists[0].cardName === "New Card") {
       setCardName(cardData.cardLists[0].cardName)
-      setCardImg("cardImg")
+      setCardImg(null)
     } else {
       setCardName(cardData.cardLists[0].cardName);
     }
@@ -173,7 +170,7 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
             cardIMG={cardImg}
             valueUpdate={setCardName}
           />
-          <img className="imagePopupText" src={cardImg} alt={cardName} />
+          <img className="imagePopupText text-transparent" src={cardImg} alt={cardName} />
         </td>
         <td className="p-4 text-primary-dark">
           <CardInfo value={cardType} />
@@ -208,7 +205,7 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
             cardIMG={cardImg}
             valueUpdate={setCardName}
           />
-          <img className="imagePopupText" src={cardImg} alt={cardName} />
+          <img className="imagePopupText" src={cardImg} alt={""} />
         </td>
         <td className="p-2 text-primary-dark">
           <CardInfo value={(cardPrice * cardCount).toFixed(2)} />
