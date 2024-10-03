@@ -99,12 +99,29 @@ const CardRows = ({ cardData, isNotPublic, update, onDelete }) => {
                           },
                         });
                       });
+                  } else {
+                    axios
+                      .put("/api/update-cardStore", {
+                        scryfallData: scryfallData.data,
+                      }) // Send the new card to my database to update it
+                      .then((res) => {
+                        axios.put("/api/update-card", {
+                          cardData: {
+                            cardName,
+                            cardCount,
+                            cardId: res.data.newCard.id,
+                            deckId: cardData.cardLists[0].deckId,
+                            id: cardData.cardLists[0].id,
+                          },
+                        });
+                      });
                   }
                 });
                 nav(`/edit/${cardData.cardLists[0].deckId}`);
             });
         } else {
           // If I have the card in my database
+          console.log("Card updated")
           setCardCount(+cardCount);
           setCardName(res.data.card.name);
           setCardType(res.data.card.typeLine);

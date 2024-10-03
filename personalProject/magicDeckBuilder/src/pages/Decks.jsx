@@ -33,12 +33,14 @@ const Decks = () => {
         // console.log(update)
         nav("/decks");
         setUpdate(true);
+        window.location.reload();
         // console.log(update)
       } else {
         // console.log("Failed to delete Deck");
         // console.log(update)
         nav("/decks");
         setUpdate(true);
+        window.location.reload();
         // console.log(update)
       }
     });
